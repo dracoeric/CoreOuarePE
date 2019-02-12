@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 12:19:57 by erli              #+#    #+#             */
-/*   Updated: 2019/02/12 14:04:32 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/12 14:20:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int			asm_match_name_or_comment(t_asm_data *data, char *line)
 	*/
 	if (data == 0 || line == 0)
 		return (-1);
+	
 	return (0);
 }
