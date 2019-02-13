@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:53:55 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:05:07 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void				asm_convert(t_asm_data *data)
 	{
 		data->line++;
 		data->col = 0;
+		// gerer le retour suivant
 		asm_go_to_tag(data, line);
 		if ((opcode = asm_match_tag(data, line)) < 0)
 			return ;
