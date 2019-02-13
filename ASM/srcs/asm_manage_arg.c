@@ -6,11 +6,12 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:30:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 15:46:16 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
 
 /*
 ** gere les parametres de l'instructions et les ecris dans buf
@@ -23,10 +24,10 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 	char	*strip[3];
 	int		cols[3];
 
-	while (line[data->code] == ' ' || line[data->code] == '\t'
-		|| line[data->code] == '\0')
+	while (line[data->col] == ' ' || line[data->col] == '\t'
+		|| line[data->col] == '\0')
 		data->col++;
-	if (line[data->code] == '\0')
+	if (line[data->col] == '\0')
 		return (asm_error_msg(data, MISSING_ARGUMENT));
 	ft_bzero(cols, sizeof(int) * 3);
 	strip[0] = 0;

@@ -6,11 +6,12 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:07:24 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 15:45:20 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
 
 /*
 ** line[data->col] doit pointer sur un tag,
@@ -34,14 +35,14 @@ int		asm_match_tag(t_asm_data *data, char *line)
 		return (asm_error_msg(data, MISSING_ARGUMENT));
 	line[i++] = '\0';
 	j = 0;
-	while (g_op_tab[j].tag != 0)
+	while (asm_op_tab(j).tag != 0)
 	{
-		if (ft_strcmp(line + data->col, g_op_tab[j].tag) == 0)
+		if (ft_strcmp(line + data->col, asm_op_tab(j).tag) == 0)
 		{
 			data->col = i;
 			return (j);
 		}
 		j++;
 	}
-	return ((char)asm_error_msg(data, UNKOWN_INSTRUCTION));
+	return ((char)asm_error_msg(data, UNKNOWN_INSTRUCTION));
 }
