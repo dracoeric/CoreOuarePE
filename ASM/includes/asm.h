@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/12 13:43:59 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 11:54:02 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_asm_data
 	int		cursor;
 	int		file_offset;
 	t_label	labels[B_SIZE / 2];
+	char	malloced;
 	int		lab_curs;
 	t_label	holes[B_SIZE / 2];
 	int		hol_curs;
