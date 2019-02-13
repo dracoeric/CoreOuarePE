@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 13:06:18 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 14:39:21 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void				asm_init_data(t_asm_data *data, int fd, int dest_fd)
 	data->line = 0;
 	data->col = 0;
 	data->error_code = 0;
+	data->mallocked = 0;
+	data->lab_size = B_SIZE / 2;
 	i = 0;
 	ft_bzero(data->buf, B_SIZE + 1);
 	while (i < B_SIZE / 2)

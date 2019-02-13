@@ -6,23 +6,68 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:53:52 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:21:47 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
+#include <stdlib.h>
+
+void	asm_labels_cpy(t_asm_data *data, t_label *new)
+{
+	int i;
+
+	i = 0;
+	while (i < data->lab_curs)
+	{
+		new[i].name = data->labels[i].name;
+		new[i].size = data->labels[i].size;
+		new[i].buf_position = data->labels[i].buf_position;
+		new[i].line = data->labels[i].line;
+		new[i].col = data->labels[i].col;
+		new[i].state = data->labels[i].state;
+		i++;
+	}
+}
+
+int		asm_malloc_labels(t_asm_data *data)
+{
+	t_label	*new;
+
+	new = NULL;
+	if ((data->lab_size + B_SIZE / 2) > 1000000)
+		return (ft_msg_int(2, "fail, lab_size too big.\n", -1));
+	if (data->mallocked & 1)
+	{
+		if (!((t_label *)realloc(data->labels,
+				sizeof(t_label) * (data->lab_size + B_SIZE / 2))))
+			return (ft_msg_int(2, "failed realloc labels.\n", -1));
+		data->lab_size = data->lab_size + B_SIZE / 2;
+	}
+	else
+	{
+		if (!(new = (t_label *)malloc(sizeof(t_label) * B_SIZE)))
+			return (ft_msg_int(2, "failed malloc labels.\n", -1));
+		data->mallocked = (data->mallocked | 1);
+		data->lab_size = B_SIZE;
+		asm_labels_cpy(data, new);
+	}
+	return (1);
+}
 
 int		asm_create_lab(t_asm_data *data, char *line, int i)
 {
 	data->lab_curs++;
-	if (lab->curs >= B_SIZE / 2)
+	if (data->lab_curs >= data->lab_size)
 	{
-		//malloc
+		if (asm_malloc_labels(data) < 0)
+			return (-1);
 	}
-	if (!(data->labels[data->lab_curs].name = ft_strndup(line, data->col, i - 1)))
+	if (!(data->labels[data->lab_curs].name = ft_strsub(line, data->col, i - 1)))
 		return(ft_msg_int(2, "failed malloc label.name\n", -1));
 	data->labels[data->lab_curs].size = i;
-	data->labels[data->lab_curs].buff_position = data->cursor;
+	data->labels[data->lab_curs].buf_position = data->cursor;
 	data->labels[data->lab_curs].line = data->line;
 	data->labels[data->lab_curs].col = data->col;
 	data->labels[data->lab_curs].state = 1;
@@ -35,7 +80,7 @@ int		asm_go_to_tag(t_asm_data *data, char *line)
 	int		i;
 
 	if (data == 0 || line == 0)
-		return ;
+		return (ft_msg_int(2, "no data or no line go to tag.\n", -1));
 	while (line[data->col] != '\0' && line[data->col] == ' '
 			&& line[data->col] == '\t')
 		data->col++;
@@ -45,7 +90,8 @@ int		asm_go_to_tag(t_asm_data *data, char *line)
 			i++;
 	if (i > 0 && line[data->col + i] == ':')
 	{
-		asm_create_lab(data, line, i);
+		if (asm_create_lab(data, line, i) < 0)
+			return (-1);
 		data->col = data->col + i + 1;
 		while (line[data->col] == ' ' || line[data->col] == '\t')
 			data->col++;
@@ -55,8 +101,4 @@ int		asm_go_to_tag(t_asm_data *data, char *line)
 	if (line[data->col] == '\0')
 		return (0);
 	return (1);
-	/* 
-	** Amene data->col au premier character non ' ' ou '\t', gere le label si il y
-	** en a un; Gere aussi les fin de lignes
-	*/
 }
