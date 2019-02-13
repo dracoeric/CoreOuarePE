@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:46:16 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 16:03:23 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 	char	*strip[3];
 	int		cols[3];
 
+	if (line[data->col] == '\0')
+		return (0);
 	while (line[data->col] == ' ' || line[data->col] == '\t'
 		|| line[data->col] == '\0')
 		data->col++;

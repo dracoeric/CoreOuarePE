@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 14:17:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 16:05:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,13 @@ int				asm_get_header(t_asm_data *data, t_header *header)
 	ret = 1;
 	while (completed != 3 && ret > 0)
 	{
-		ret = asm_next_line(data->fd, &line);
+		ret = get_next_line(data->fd, &line);
 		if (ret > 0)
+		{
+			data->line++;
+			data->col = 0;
 			ret = asm_header_read(data, line, header, &completed);
+		}
 		else if (ret == -1)
 			return (ft_msg_int(2, "Failed GNL\n", -2));
 		else

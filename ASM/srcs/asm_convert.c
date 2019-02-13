@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:21:49 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 16:05:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void				asm_convert(t_asm_data *data)
 		return ;
 	ft_putstr("asm_convert to do\n");
 	line = NULL;
-	while ((ret = asm_next_line(data->fd, &line)) > 0)
+	while ((ret = get_next_line(data->fd, &line)) > 0)
 	{
 		data->line++;
 		data->col = 0;
 		// gerer le retour suivant
-		asm_go_to_tag(data, line);
+		if (asm_go_to_tag(data, line) < 0)
+			return ;
 		if ((opcode = asm_match_tag(data, line)) < 0)
 			return ;
 		if (asm_manage_arg(data, opcode, line) < 0)
