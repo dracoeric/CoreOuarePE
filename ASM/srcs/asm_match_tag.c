@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:00:28 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 15:07:24 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ int		asm_match_tag(t_asm_data *data, char *line)
 		if (ft_strcmp(line + data->col, g_op_tab[j].tag) == 0)
 		{
 			data->col = i;
-			data->buf[data->cursor] = g_op_tab[j].opcode;
-			data->cursor += 1;
 			return (j);
 		}
 		j++;
 	}
-	return ((char)asm_error_msg(data, UNKOWN_INSTR_ERROR));
+	return ((char)asm_error_msg(data, UNKOWN_INSTRUCTION));
 }
