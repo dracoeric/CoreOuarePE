@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/12 12:48:14 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 11:16:44 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	int	asm_check_file(char *file, int *fd, int *dest_fd)
 	if (file == 0)
 		return (-1);
 	len = ft_strlen(file);
-	if (len < 3 || ft_strcmp(file + len - 3, ".s") != 0)
+	if (len < 3 || ft_strcmp(file + len - 2, ".s") != 0)
 	{
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(" has an incorrect format,", 2);
