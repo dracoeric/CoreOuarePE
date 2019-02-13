@@ -6,13 +6,43 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/12 13:58:50 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 11:01:10 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
 #include <stdlib.h>
+
+static	int		asm_match_name_or_comment(t_asm_data *data, char *line)
+{
+	int		flags;
+	int		i;
+	char	*cmd_name;
+	char	*cmd_com;
+//	char	cmd_name[ft_strlen(NAME_CMD_STRING) + 1];
+//	char	cmd_com[ft_strlen(COMMENT_CMD_STRING) + 1];
+
+	cmd_name = NAME_CMD_STRING;
+	cmd_com = COMMENT_CMD_STRING;
+	flags = 3;
+//	ft_strncpy(cmd_name, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING) + 1);
+//	ft_strncpy(cmd_com, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING) + 1);
+	i = data->col;
+	while (flags != 0 && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
+	{
+		if (line[i] != cmd_name[i] && cmd_name[i] != '\0' && (flags & 1) == 1)
+			flags -= 1;
+		if (line[i] != cmd_com[i] && cmd_com[i] != '\0' && (flags & 2) == 1)
+			flags -= 2;
+		i++;
+	}
+	if ((flags == 0) || (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
+		|| (!(i == ft_strlen(cmd_name) || i == ft_strlen(cmd_comment))))
+		return (asm_error_msg(data, LEXICAL_ERROR));
+	data->col = i + 1;
+	return (flags);
+}
 
 static	int		asm_get_string(t_asm_data *data, char *line)
 {
@@ -25,7 +55,7 @@ static	int		asm_get_string(t_asm_data *data, char *line)
 	return (1);
 }
 
-static	int		asm_strip_line(t_asm_data *data, char *line, char *strip[2])
+static	int		asm_strip_line(t_asm_data *data, char *line, char *strip)
 {
 	int	name_or_com;
 
@@ -33,7 +63,8 @@ static	int		asm_strip_line(t_asm_data *data, char *line, char *strip[2])
 	while (line[data->col] != '\0' && (line[data->col] == ' '
 		|| line[data->col] == '\t'))
 		data->col++;
-	strip[0] = line + (data->col - 1);
+	if (line[data->col] == '\0')
+		return (0);
 	if ((name_or_com = asm_match_name_or_comment(data, line)) < 0)
 		return (-1);
 	while (line[data->col] != '\0' && (line[data->col] == ' '
@@ -42,7 +73,7 @@ static	int		asm_strip_line(t_asm_data *data, char *line, char *strip[2])
 	if (line[data->col] != '"')
 		return (asm_error_msg(data, SYNTAX_ERROR));
 	data->col++;
-	strip[1] = line + (data->col - 1);
+	strip = line + (data->col - 1);
 	if (asm_get_string(data, line) < 0)
 		return (-1);
 	while (line[data->col] != '\0' && (line[data->col] == ' '
@@ -56,27 +87,29 @@ static	int		asm_strip_line(t_asm_data *data, char *line, char *strip[2])
 static	int		asm_header_read(t_asm_data *data, char *line, t_header *header,
 					int *completed)
 {
-	char	*strip[2];
+	char	*strip;
 	int		name_or_com;
 
 	if ((name_or_com = asm_strip_line(data, line, strip)) < 0)
 		return (-1);
+	if (name_or_com == 0)
+		return (1);
 	if (name_or_com == 1 && (*completed & 1) == 0)
 	{
-		ft_strncpy(header->prog_name, strip[1], PROG_NAME_LENGTH + 1);
+		ft_strncpy(header->prog_name, strip, PROG_NAME_LENGTH + 1);
 		*completed += 1;
 		free(line);
 	}
 	else if (name_or_com == 2 && (*completed & 2) == 0)
 	{
-		ft_strncpy(header->comment, strip[1], COMMENT_LENGTH + 1);
+		ft_strncpy(header->comment, strip, COMMENT_LENGTH + 1);
 		*completed += 2;
 		free(line);
 	}
 	else if (name_or_com == 1 && (*completed & 1) == 1)
-		return (ft_msg_int(2, "Error, two name command line\n", -1));
+		return (ft_msg_int(2, "Error, two name command line.\n", -1));
 	else if (name_or_com == 2 && (*completed & 2) == 1)
-		return (ft_msg_int(2, "Error, two comment command line\n", -1));
+		return (ft_msg_int(2, "Error, two comment command line.\n", -1));
 	return (0);
 }
 
