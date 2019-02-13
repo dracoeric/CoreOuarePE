@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:54:02 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:58:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct	s_asm_data
 
 int				asm_error_msg(t_asm_data *data, int error_code);
 void			asm_assemble(int fd, int dest_fd);
-int				asm_get_header(t_asm_data *data);
+int				asm_get_header(t_asm_data *data, t_header *header);
 int				asm_next_line(int fd, char **line);
 void			asm_convert(t_asm_data *data);
 void			asm_free_data(t_asm_data **data);

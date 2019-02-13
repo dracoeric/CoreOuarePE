@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:06:19 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 13:06:18 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void				asm_init_data(t_asm_data *data, int fd, int dest_fd)
 
 void				asm_assemble(int fd, int dest_fd)
 {
-	t_asm_data data[1];
-
+	t_asm_data	data[1];
+	t_header	header[1];
 	asm_init_data(data, fd, dest_fd);
-	if (asm_get_header(data) < 0)
+	if (asm_get_header(data, header) < 0)
 		return ;
 //	asm_convert(data);      
 }

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:54:07 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 13:08:06 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,10 @@ static	int		asm_header_read(t_asm_data *data, char *line, t_header *header,
 	return (1);
 }
 
-int				asm_get_header(t_asm_data *data)
+int				asm_get_header(t_asm_data *data, t_header *header)
 {
 	char		*line;
 	int			completed;
-	t_header	header[1];
 	int			ret;
 
 	if (data == 0)
@@ -129,10 +128,7 @@ int				asm_get_header(t_asm_data *data)
 	{
 		ret = asm_next_line(data->fd, &line);
 		if (ret > 0)
-		{
 			ret = asm_header_read(data, line, header, &completed);
-			ft_printf("ret = %d, comp = %d\n", ret, completed);
-		}
 		else if (ret == -1)
 			return (ft_msg_int(2, "Failed GNL\n", -2));
 		else
