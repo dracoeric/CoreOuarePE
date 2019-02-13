@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:21:47 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 16:35:36 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		asm_create_lab(t_asm_data *data, char *line, int i)
 		if (asm_malloc_labels(data) < 0)
 			return (-1);
 	}
-	if (!(data->labels[data->lab_curs].name = ft_strsub(line, data->col, i - 1)))
+	if (!(data->labels[data->lab_curs].name = ft_strsub(line, data->col, i)))
 		return(ft_msg_int(2, "failed malloc label.name\n", -1));
 	data->labels[data->lab_curs].size = i;
 	data->labels[data->lab_curs].buf_position = data->cursor;
@@ -81,8 +81,8 @@ int		asm_go_to_tag(t_asm_data *data, char *line)
 
 	if (data == 0 || line == 0)
 		return (ft_msg_int(2, "no data or no line go to tag.\n", -1));
-	while (line[data->col] != '\0' && line[data->col] == ' '
-			&& line[data->col] == '\t')
+	while (line[data->col] != '\0' && (line[data->col] == ' ' ||
+			line[data->col] == '\t'))
 		data->col++;
 	str_lab = LABEL_CHARS;
 	i = 0;
