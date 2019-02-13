@@ -6,12 +6,13 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:05:07 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:21:49 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include <stdlib.h>
 
 void				asm_convert(t_asm_data *data)
 {
@@ -23,7 +24,7 @@ void				asm_convert(t_asm_data *data)
 		return ;
 	ft_putstr("asm_convert to do\n");
 	line = NULL;
-	while ((ret = asm_next_line(data, &line)) > 0)
+	while ((ret = asm_next_line(data->fd, &line)) > 0)
 	{
 		data->line++;
 		data->col = 0;

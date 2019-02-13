@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:02:30 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:21:54 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			asm_convert(t_asm_data *data);
 void			asm_free_data(t_asm_data **data);
 int				asm_match_name_or_comment(t_asm_data *data, char *line);
 void			asm_write_header(t_asm_data *data, t_header *header);
-int				asm_go_to_tag(t_asm_data *data, char *line, int i);
+int				asm_go_to_tag(t_asm_data *data, char *line);
 char			asm_match_tag(t_asm_data *data, char *line);
 int				asm_manage_arg(t_asm_data *data, char opcode, char *line);
 #endif

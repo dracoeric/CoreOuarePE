@@ -6,13 +6,15 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:01:06 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:21:47 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
+#include <stdlib.h>
 
-void	asm_labels_cpy(t_asm_data *data, t_labels *new)
+void	asm_labels_cpy(t_asm_data *data, t_label *new)
 {
 	int i;
 
@@ -21,7 +23,7 @@ void	asm_labels_cpy(t_asm_data *data, t_labels *new)
 	{
 		new[i].name = data->labels[i].name;
 		new[i].size = data->labels[i].size;
-		new[i].buff_position = data->labels[i].buff_position;
+		new[i].buf_position = data->labels[i].buf_position;
 		new[i].line = data->labels[i].line;
 		new[i].col = data->labels[i].col;
 		new[i].state = data->labels[i].state;
@@ -57,15 +59,15 @@ int		asm_malloc_labels(t_asm_data *data)
 int		asm_create_lab(t_asm_data *data, char *line, int i)
 {
 	data->lab_curs++;
-	if (lab->curs >= data->lab_size)
+	if (data->lab_curs >= data->lab_size)
 	{
 		if (asm_malloc_labels(data) < 0)
 			return (-1);
 	}
-	if (!(data->labels[data->lab_curs].name = ft_strndup(line, data->col, i - 1)))
+	if (!(data->labels[data->lab_curs].name = ft_strsub(line, data->col, i - 1)))
 		return(ft_msg_int(2, "failed malloc label.name\n", -1));
 	data->labels[data->lab_curs].size = i;
-	data->labels[data->lab_curs].buff_position = data->cursor;
+	data->labels[data->lab_curs].buf_position = data->cursor;
 	data->labels[data->lab_curs].line = data->line;
 	data->labels[data->lab_curs].col = data->col;
 	data->labels[data->lab_curs].state = 1;
@@ -78,7 +80,7 @@ int		asm_go_to_tag(t_asm_data *data, char *line)
 	int		i;
 
 	if (data == 0 || line == 0)
-		return ;
+		return (ft_msg_int(2, "no data or no line go to tag.\n", -1));
 	while (line[data->col] != '\0' && line[data->col] == ' '
 			&& line[data->col] == '\t')
 		data->col++;
