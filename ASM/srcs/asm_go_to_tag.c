@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/12 14:55:28 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/12 18:25:42 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void			asm_go_to_tag(t_asm_data *data, char *line)
 		return ;
 	/* 
 	** Amene data->col au premier character non ' ' ou '\t', gere le label si il y
-	** en a un;
+	** en a un; Gere aussi les fin de lignes
 	*/
 }
