@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:56:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 17:58:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void				asm_init_data(t_asm_data *data, int fd, int dest_fd)
 
 	data->fd = fd;
 	data->dest_fd = dest_fd;
+	data->max_arg = 0;
+	while (asm_op_tab(data->max_arg),tag != 0)
+		data->max_arg++;
 	data->cursor = 0;
 	data->file_offset = 0;
 	data->lab_curs = 0;

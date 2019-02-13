@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:46:49 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 17:57:42 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_asm_data
 {
 	int		fd;
 	int		dest_fd;
+	int		max_arg;
 	int		buf_header[HEADER_SIZE + 1];
 	char	buf[B_SIZE + 1];
 	int		cursor;

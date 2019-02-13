@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/13 15:47:48 by erli             ###   ########.fr        #
+#    Updated: 2019/02/13 18:00:43 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -58,6 +58,7 @@ fclean		:		clean
 					$(RM) $(NAME)
 
 re			:		
+					@make -C libft re
 					@make fclean
 					@make all
 
