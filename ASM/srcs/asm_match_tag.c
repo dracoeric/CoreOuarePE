@@ -6,13 +6,13 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 14:46:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 15:00:28 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/* 
+/*
 ** line[data->col] doit pointer sur un tag,
 ** retourne le opcode si ca match,
 ** retourne -1 ou 20 si erreur avec message d'erreur LEXICAL ERROR pointant
@@ -20,7 +20,7 @@
 ** gere les ligne vide
 */
 
-char			asm_match_tag(t_asm_data *data, char *line)
+int		asm_match_tag(t_asm_data *data, char *line)
 {
 	unsigned int	i;
 	int				j;
@@ -39,9 +39,11 @@ char			asm_match_tag(t_asm_data *data, char *line)
 		if (ft_strcmp(line + data->col, g_op_tab[j].tag) == 0)
 		{
 			data->col = i;
-			return (g_op_tab[j].opcode);
+			data->buf[data->cursor] = g_op_tab[j].opcode;
+			data->cursor += 1;
+			return (j);
 		}
 		j++;
 	}
-	return ((char)asm_error_msg(data, LEXICAL_ERROR));
+	return ((char)asm_error_msg(data, UNKOWN_INSTR_ERROR));
 }
