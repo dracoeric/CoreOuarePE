@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 11:16:44 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 19:46:36 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static	int	asm_dest_path(char *file, int len)
 		perror("asm");
 		return (-1);
 	}
-	return (fd);		
+	return (fd);
 }
 
 static	int	asm_check_file(char *file, int *fd, int *dest_fd)
@@ -55,7 +55,7 @@ static	int	asm_check_file(char *file, int *fd, int *dest_fd)
 	*dest_fd = asm_dest_path(file, len);
 	if (*dest_fd < 0)
 		return (-1);
-	return (1);	
+	return (1);
 }
 
 int			main(int argc, char **argv)

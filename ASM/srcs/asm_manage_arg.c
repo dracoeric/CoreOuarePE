@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 18:04:56 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 19:36:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 	ft_bzero(cols, sizeof(int) * data->max_arg);
 	i = 0;
 	while (i < data->max_arg)
-		strip[i++] = NULL;
+		strip[i++] = 0;
 	if (asm_strip_arg(data, line, strip, cols) < 0)
 		return (-1);
 	if (asm_verif_arg(data, opcode, strip) < 0)
