@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/13 11:06:59 by erli             ###   ########.fr        #
+#    Updated: 2019/02/13 14:01:57 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,7 +28,7 @@ CFLAG		=		-Wall -Werror -Wextra
 
 INCL		=		-I includes/ -I libft/includes/
 
-HEADER		=		includes/asm.h
+HEADER		=		includes/asm.h includes/asm_error_msg.h
 
 RM			=		rm -f
 

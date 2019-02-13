@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 13:08:06 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 14:08:31 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,27 @@
 
 int		asm_match_name_or_comment(t_asm_data *data, char *line)
 {
-	int				flags;
 	unsigned int	i;
-	char			*cmd_name;
-	char			*cmd_com;
+	int				flag;
 
-	cmd_name = NAME_CMD_STRING;
-	cmd_com = COMMENT_CMD_STRING;
-	flags = 3;
+	flag = 0;
 	i = data->col;
-	while (flags != 0 && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-	{
-		if ((flags & 1) == 1 && line[i] != cmd_name[i] && cmd_name[i] != '\0')
-			flags -= 1;
-		if ((flags & 2) == 2 && line[i] != cmd_com[i] && cmd_com[i] != '\0')
-			flags -= 2;
+	if (line[i] == '\0')
+		return (0);
+	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
 		i++;
+	if (i == ft_strlen(NAME_CMD_STRING)
+		&& ft_strncmp(line + data->col, NAME_CMD_STRING, i - 1) == 0)
+		flag = 1;
+	if (i == ft_strlen(COMMENT_CMD_STRING)
+		&& ft_strncmp(line + data->col, COMMENT_CMD_STRING, i - 1) == 0)
+		flag = 2;
+	if (flag != 0)
+	{
+		data->col = i;
+		return (flag);
 	}
-	if ((flags == 0) || (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-		|| (!(i == ft_strlen(cmd_name) || i == ft_strlen(cmd_com))))
-		return (asm_error_msg(data, LEXICAL_ERROR));
-	data->col = i + 1;
-	return (flags);
+	return (asm_error_msg(data, LEXICAL_ERROR));
 }
 
 static	int		asm_get_string(t_asm_data *data, char *line)
