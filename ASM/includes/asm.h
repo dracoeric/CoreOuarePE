@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 19:49:39 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 15:11:17 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define MISSING_ARGUMENT 4
 # define UNKNOWN_INSTRUCTION 5
 # define WRONG_NB_OF_ARG 6
+# define WRONG_REG_NUMBER 7
 
 typedef struct	s_op
 {
@@ -35,7 +36,7 @@ typedef struct	s_op
 	int			duration;
 	char		*description;
 	char		ocp;
-	char		direct_is_short;
+	char		direct_is_half;
 }				t_op;
 
 typedef	struct	s_label
@@ -56,6 +57,7 @@ typedef struct	s_asm_data
 	int		max_arg;
 	int		buf_header[HEADER_SIZE + 1];
 	char	buf[B_SIZE + 1];
+	int		buf_size;
 	int		cursor;
 	int		file_offset;
 	t_label	labels[B_SIZE / 2];
@@ -63,6 +65,7 @@ typedef struct	s_asm_data
 	char	mallocked;
 	int		lab_curs;
 	t_label	holes[B_SIZE / 2];
+	int		holes_size;
 	int		hol_curs;
 	int		line;
 	int		col;

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 13:28:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 15:34:28 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int			asm_write_in_buf(t_asm_data *data, int arg, int nb_bytes)
 {
-
-
-
+	if (data == 0 || arg == -1 || nb_bytes == -1)
+		return (-1);
+	return (1);
 } 
