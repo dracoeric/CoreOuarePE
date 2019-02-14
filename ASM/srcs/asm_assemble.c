@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:30:04 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 17:35:39 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static	int			asm_init_data(t_asm_data *data, int fd)
+static	int			asm_init_data(t_asm_data *data, int fd, char options)
 {
 	int i;
 
@@ -35,6 +35,7 @@ static	int			asm_init_data(t_asm_data *data, int fd)
 	data->lab_size = B_SIZE / 2;
 	data->holes_size = B_SIZE / 2;
 	data->buf_size = B_SIZE + 1;
+	data->options = options;
 	i = 0;
 	ft_bzero(data->buf, B_SIZE + 1);
 	while (i < B_SIZE / 2)
@@ -59,7 +60,7 @@ void				asm_finish(t_asm_data *data, t_header *header, char *file)
 	asm_free_data(data);
 }
 
-void				asm_assemble(int fd, char *file)
+void				asm_assemble(int fd, char *file, char options)
 {
 	t_asm_data	data[1];
 	t_header	header[1];
@@ -70,7 +71,7 @@ void				asm_assemble(int fd, char *file)
 	data->buf = buf;
 	data->labels = labels;
 	data->holes = holes;
-	if (asm_init_data(data, fd) < 0)
+	if (asm_init_data(data, fd, options) < 0)
 		exit(ft_msg_int(2, "Max number of arg over 100\n", 0));
 	if (asm_get_header(data, header) < 0)
 		return ;

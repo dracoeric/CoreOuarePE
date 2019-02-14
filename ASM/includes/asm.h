@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:29:26 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 17:35:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,14 @@ typedef struct	s_asm_data
 	t_label	*holes;
 	int		holes_size;
 	int		hol_curs;
+	char	options;	
 	int		line;
 	int		col;
 	int		error_code;
 }				t_asm_data;
 
 int				asm_error_msg(t_asm_data *data, int error_code);
-void			asm_assemble(int fd, char *file);
+void			asm_assemble(int fd, char *file, char options);
 int				asm_get_header(t_asm_data *data, t_header *header);
 int				asm_next_line(int fd, char **line);
 int				asm_convert(t_asm_data *data);

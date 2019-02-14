@@ -6,11 +6,13 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:26:04 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/14 17:37:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
+#include <stdlib.h>
 
 /*
 ** write nb_byte of arg in data->buf and update data->cursor.
@@ -23,9 +25,9 @@ int			asm_malloc_buff(t_asm_data *data)
 {
 	char	*new;
 
-	if (data->buf_size + B_SIZE > 10000000 && (data->option & 1) == 0)
-		return (ft_msg_int(1, "Warning, abort champ too big, rerun with -c to 
-					force\n", -1));
+	if (data->buf_size + B_SIZE > 10000000 && (data->options & 1) == 0)
+		return (ft_msg_int(1,
+		"Warning, abort champ too big, rerun with -c to force\n", -1));
 	if ((data->mallocked & 3) == 0)
 	{
 		if (!(new = (char *)malloc(sizeof(char) * (data->buf_size + B_SIZE))))
@@ -60,7 +62,7 @@ int			asm_write_in_buf(t_asm_data *data, int arg, int nb_bytes)
 	str = (unsigned char *)&arg;
 	while (i < nb_bytes)
 	{
-		data->buff[data->cursor + nb_bytes - i] = str[i];
+		data->buf[data->cursor + nb_bytes - i] = str[i];
 		i++;
 	}
 	data->cursor = data->cursor + nb_bytes;
