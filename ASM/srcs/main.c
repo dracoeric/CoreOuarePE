@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 19:46:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 10:47:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int			main(int argc, char **argv)
 	while (i < argc)
 	{
 		if (asm_check_file(argv[i], &fd, &dest_fd) > 0)
+		{
 			asm_assemble(fd, dest_fd);
+			close(fd);
+			close(dest_fd);
+		}
 		i++;
 	}
 	return (0);
