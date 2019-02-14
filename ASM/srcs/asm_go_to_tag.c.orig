@@ -6,7 +6,11 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:40:12 by erli             ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2019/02/14 15:21:23 by erli             ###   ########.fr       */
+=======
+/*   Updated: 2019/02/14 11:37:07 by pmasson          ###   ########.fr       */
+>>>>>>> e3326784caf1dda5a7972508ee909c8bca09915b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +25,7 @@ static	void	asm_init_labels(t_asm_data *data)
 	i = data->lab_curs;
 	while (i < data->lab_size)
 	{
-		data->labels[i].state = 0;
+		data->lables[i].state = 0;
 		i++;
 	}
 }

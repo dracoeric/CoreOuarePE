@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:56:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:29:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 16:07:14 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	void	asm_holes_cpy(t_asm_data *data, t_label *new)
 	while (i < data->lab_curs)
 	{
 		new[i].name = data->holes[i].name;
-		new[i].size = data->holes[i].name;
+		new[i].size = data->holes[i].size;
 		new[i].buf_position = data->holes[i].buf_position;
 		new[i].line = data->holes[i].line;
 		new[i].col = data->holes[i].col;
@@ -78,7 +78,7 @@ static	int		asm_malloc_holes(t_asm_data *data)
 	return (1);
 }
 
-static	int		asm_create_holes(t_asm_data *data, char *name)
+static	int		asm_create_hole(t_asm_data *data, char *name)
 {
 	if (data->hol_curs >= data->holes_size)
 	{
@@ -96,7 +96,7 @@ static	int		asm_create_holes(t_asm_data *data, char *name)
 	return (1);
 }
 
-int				asm_manage_holes(t_asm_data *data, char *arg, int nb_byte,
+int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 					int opcode)
 {
 	int lab_index;
@@ -104,7 +104,10 @@ int				asm_manage_holes(t_asm_data *data, char *arg, int nb_byte,
 
 	if ((lab_index = asm_search_label(data, arg)) < 0
 		&& asm_create_hole(data, arg) < 0)
+	{
+		data->cursor += nb_byte;
 		return (-1);
+	}
 	else
 	{
 		content = data->labels[lab_index].buf_position - data->cursor;

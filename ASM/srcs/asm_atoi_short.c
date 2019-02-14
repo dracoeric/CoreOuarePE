@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:35:37 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 13:41:26 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 15:58:17 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ short			asm_atoi_short(char *str)
 {
 	short	nb;
 	short	sign;
-	int		nb;
+	int		i;
 
 	nb = 0;
 	sign = 1;

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:11:17 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:33:33 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define UNKNOWN_INSTRUCTION 5
 # define WRONG_NB_OF_ARG 6
 # define WRONG_REG_NUMBER 7
+# define WRONG_ARG_TYPE 8
 
 typedef struct	s_op
 {
@@ -84,9 +85,11 @@ int				asm_match_tag(t_asm_data *data, char *line);
 int				asm_manage_arg(t_asm_data *data, int opcode, char *line);
 int				asm_strip_arg(t_asm_data *data, char *line, char **strip,
 					int *cols);
-int				asm_verif_arg(t_asm_data *data, int opcode, char **strip);
+char			asm_verif_arg(t_asm_data *data, int opcode, char **strip,
+					int *cols);
 int				asm_write_instruction(t_asm_data *data, int opcode,
 					char **strip, int *cols);
 t_op			asm_op_tab(int i);
 int				asm_max_arg(void);
+void			asm_create_ocp(char *ocp, int tr, int i);
 #endif

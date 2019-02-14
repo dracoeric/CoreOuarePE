@@ -6,11 +6,12 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 14:39:08 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 15:57:40 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "libft.h"
 
 /*
 ** opcode is in fact the index in g_op_tab, the instruction is at
@@ -29,7 +30,7 @@
 ** return -1 if write_in_buf_fails.
 */
 
-static	int	asm_manage_register(t_asm_data *data, int opcode, char *arg)
+static	int	asm_manage_register(t_asm_data *data, char *arg)
 {
 	int nb;
 
@@ -40,6 +41,65 @@ static	int	asm_manage_register(t_asm_data *data, int opcode, char *arg)
 	return (1);
 }
 
+/*
+** Checks if argument is D4 of D2
+** If the arguement si a direct value, does the atoi (D4 or D2)
+** does modulo 65536 if D2, doe modulo IDX_MOD
+** then calls write_in_buf.
+** If argument is a hole, calls manage hole.
+** returns -1 if write_to_buf or manage hole fails (failed malloc).
+*/
+
+static	int	asm_manage_direct(t_asm_data *data, int opcode, char *arg)
+{
+	int		half_size;
+	int		content;
+
+	content = 0;
+	half_size = asm_op_tab(opcode).direct_is_half;
+	if (arg[1] == ':' && asm_manage_hole(data, arg + 2,
+		(half_size == 1 ? 2 : 4), opcode) < 0)
+		return (-1);
+	else
+	{
+		content = (half_size == 1 ? (int)asm_atoi_short(arg + 1)
+			: ft_atoi(arg + 1));
+		if (half_size == 1)
+			content = content % 65536;
+		if (asm_op_tab(opcode).opcode < 13
+			&& asm_op_tab(opcode).opcode > 15)
+			content = content % IDX_MOD;
+		if (asm_write_in_buf(data, content, (half_size == 1 ? 2 : 4)) < 0)
+			return (-1);
+	}
+	return (1);
+}
+
+/*
+** if argument is a value, does atoi (2 byte) then calls write_in_buf
+** if argument is a hole, calls manage hole
+** return -1 if write_in_buf or manage hole fails (failed malloc) fails.
+*/
+
+static	int	asm_manage_indirect(t_asm_data *data, int opcode, char *arg)
+{
+	int		content;
+
+	content = 0;
+	if (arg[0] == ':' && asm_manage_hole(data, arg + 1, 2, opcode) < 0)
+		return (-1);
+	else
+	{
+		content = (int)asm_atoi_short(arg);
+		if (asm_op_tab(opcode).opcode < 13
+			&& asm_op_tab(opcode).opcode > 15)
+			content = content % IDX_MOD;
+		if (asm_write_in_buf(data, content, 2) < 0)
+			return (-1);
+	}
+	return (1);
+}
+
 int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 				int *cols)
 {
@@ -47,7 +107,7 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 	int		i;
 	int		ret;
 
-	ocp = asm_verif_arg(data, opcode, strip);
+	ocp = asm_verif_arg(data, opcode, strip, cols);
 	if ((ocp & 3) != 0)
 		return (-1);
 	data->buf[data->cursor++] = asm_op_tab(opcode).opcode;
@@ -59,14 +119,12 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 	{
 		data->col = cols[i];
 		if ((ocp >> (6 - (2 * i)) & 3) == 1)
-			ret = asm_manage_register(data, opcode, strip[i]);
+			ret = asm_manage_register(data, strip[i]);
 		else if ((ocp >> (6 - (2 * i)) & 3) == 2)
 			ret = asm_manage_direct(data, opcode, strip[i]);
 		else if ((ocp >> (6 - (2 * i)) & 3) == 3)
 			ret = asm_manage_indirect(data, opcode, strip[i]);
 		i++;
 	}
-	if (ret < 0)
-		return (-1);
-	return (1);
+	return (ret < 0 ? -1 : 1);
 }

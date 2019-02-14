@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 14:32:47 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:44:22 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ void				asm_assemble(int fd, int dest_fd)
 {
 	t_asm_data	data[1];
 	t_header	header[1];
+	char		buf[B_SIZE + 1];
+	t_label		labels[B_SIZE /2];
+	t_label		holes[B_SIZE / 2];
 
+	data->buf = buf;
+	data->labels = labels;
+	data->holes = holes;
 	if (asm_init_data(data, fd, dest_fd) < 0)
 		exit(ft_msg_int(2, "Max number of arg over 100\n", 0));
 	if (asm_get_header(data, header) < 0)

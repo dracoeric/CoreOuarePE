@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 10:47:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 15:39:20 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 
 static	int	asm_dest_path(char *file, int len)
 {
