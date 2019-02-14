@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 19:49:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 14:32:47 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static	int			asm_init_data(t_asm_data *data, int fd, int dest_fd)
 	data->fd = fd;
 	data->dest_fd = dest_fd;
 	data->max_arg = asm_max_arg();
-	if (data->max_arg > 100)
+	if (data->max_arg > 3)
 		return (0);
 	data->cursor = 0;
 	data->file_offset = 0;
@@ -32,6 +32,8 @@ static	int			asm_init_data(t_asm_data *data, int fd, int dest_fd)
 	data->error_code = 0;
 	data->mallocked = 0;
 	data->lab_size = B_SIZE / 2;
+	data->holes_size = B_SIZE / 2;
+	data->buf_size = B_SIZE + 1;
 	i = 0;
 	ft_bzero(data->buf, B_SIZE + 1);
 	while (i < B_SIZE / 2)
