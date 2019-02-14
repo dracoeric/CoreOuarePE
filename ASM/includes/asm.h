@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:59:13 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 17:29:26 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ typedef struct	s_asm_data
 }				t_asm_data;
 
 int				asm_error_msg(t_asm_data *data, int error_code);
-void			asm_assemble(int fd, int dest_fd);
+void			asm_assemble(int fd, char *file);
 int				asm_get_header(t_asm_data *data, t_header *header);
 int				asm_next_line(int fd, char **line);
-void			asm_convert(t_asm_data *data);
-void			asm_free_data(t_asm_data **data);
+int				asm_convert(t_asm_data *data);
+void			asm_free_data(t_asm_data *data);
 void			asm_write_header(t_asm_data *data, t_header *header);
 int				asm_go_to_tag(t_asm_data *data, char *line);
 int				asm_match_tag(t_asm_data *data, char *line);
@@ -99,4 +99,5 @@ int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 int				asm_write_in_buf(t_asm_data *data, int content, int nb_byte);
 short			asm_atoi_short(char *str);
 int				asm_search_label(t_asm_data *data, char *name);
+int				asm_dest_path(char *file, int len);
 #endif

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 19:39:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 17:31:33 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** retourne le bon message d'erreur si erreur.
 */
 
-void				asm_convert(t_asm_data *data)
+int		asm_convert(t_asm_data *data)
 {
 	char	*line;
 	int		ret;
@@ -32,18 +32,18 @@ void				asm_convert(t_asm_data *data)
 		data->line++;
 		data->col = 0;
 		if (asm_go_to_tag(data, line) < 0)
-			return ;
-		if ((opcode = asm_match_tag(data, line)) < 0)
-			return ;
-		if (asm_manage_arg(data, opcode, line) < 0)
-			return ;
+			ret = -1;
+		if (ret > 0 && (opcode = asm_match_tag(data, line)) < 0)
+			ret = -1;
+		if (ret > 0 && asm_manage_arg(data, opcode, line) < 0)
+			ret = -1;
 		free(line);
+		if (ret < 0)
+			return (-1);
 	}
 	if (ret < 0)
-	{
-		ft_putstr_fd("Failed GNL\n", 2);
-		return ;
-	}
+		return (ft_msg_int(2, "Failed GNL.\n", -1));
 	if (ret == 0 && data->cursor == 0)
-		ft_putstr_fd("Error, missing instructions\n", 2);
+		return (asm_error_msg(data, NO_INSTRUCTION));
+	return (1);
 }

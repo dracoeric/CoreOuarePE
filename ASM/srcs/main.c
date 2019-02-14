@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:39:20 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 17:28:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static	int	asm_dest_path(char *file, int len)
-{
-	int		fd;
-	char	path[len + 3];
-
-	ft_strncpy(path, file, len - 2);
-	ft_strncpy(path + len - 2, ".cor", 5);
-	fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("asm");
-		return (-1);
-	}
-	return (fd);
-}
-
-static	int	asm_check_file(char *file, int *fd, int *dest_fd)
+static	int	asm_check_file(char *file, int *fd)
 {
 	int	len;
 
@@ -51,11 +35,9 @@ static	int	asm_check_file(char *file, int *fd, int *dest_fd)
 		ft_putstr_fd("Cannot read source file ", 2);
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(".\n", 2);
+		perror("asm");
 		return (-1);
 	}
-	*dest_fd = asm_dest_path(file, len);
-	if (*dest_fd < 0)
-		return (-1);
 	return (1);
 }
 
@@ -63,18 +45,16 @@ int			main(int argc, char **argv)
 {
 	int i;
 	int	fd;
-	int	dest_fd;
 
 	if (argc == 1)
 		return (ft_msg_int(1, "Usage : ./asm <sourcefile.s>\n", 0));
 	i = 1;
 	while (i < argc)
 	{
-		if (asm_check_file(argv[i], &fd, &dest_fd) > 0)
+		if (asm_check_file(argv[i], &fd) > 0)
 		{
-			asm_assemble(fd, dest_fd);
+			asm_assemble(fd, argv[i]);
 			close(fd);
-			close(dest_fd);
 		}
 		i++;
 	}
