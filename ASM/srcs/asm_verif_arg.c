@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:26:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:33:24 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:55:28 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 
 /*
-** Verify that there is the right amout of argument, of the right type for 
+** Verify that there is the right amout of argument, of the right type for
 ** the instruction by looking in g_op_tab[opcode]
 ** return(ocp)
 */
@@ -30,7 +30,7 @@ int				asm_verif_reg(char *strip)
 		return (0);
 	while (strip[i] == '0')
 		i++;
-	while(strip[i + cpt] != '\0' && ft_isdigit(strip[i + cpt]) == 1)
+	while (strip[i + cpt] != '\0' && ft_isdigit(strip[i + cpt]) == 1)
 		cpt++;
 	if (cpt > 3 || strip[i + cpt] != '\0')
 		return (-1);
@@ -39,7 +39,7 @@ int				asm_verif_reg(char *strip)
 		return (-1);
 	return (1);
 }
-	
+
 int				asm_verif_dir_ind(char *strip, int dir)
 {
 	int		i;
@@ -68,32 +68,34 @@ int				asm_verif_dir_ind(char *strip, int dir)
 	return (-1);
 }
 
-int				asm_verif_type_arg(t_asm_data *data, t_op op, char **strip, int i)
+int				asm_verif_type_arg(t_asm_data *data, t_op op,
+					char **strip, int i)
 {
 	int	tr;
 
 	tr = 0;
-	if((T_REG & op.arg_type[i]) > 0)
+	if ((T_REG & op.arg_type[i]) > 0)
 	{
 		if ((tr = asm_verif_reg(strip[i])) == -1)
 			return (asm_error_msg(data, WRONG_REG_NUMBER));
 	}
-	if(tr == 0 && (T_DIR & op.arg_type[i]) > 0)
+	if (tr == 0 && (T_DIR & op.arg_type[i]) > 0)
 	{
 		if ((tr = asm_verif_dir_ind(strip[i], 1)) == -1)
 			return (asm_error_msg(data, LEXICAL_ERROR));
 		tr = tr == 1 ? tr + 1 : tr;
 	}
-	if(tr == 0 && (T_IND & op.arg_type[i]) > 0)
+	if (tr == 0 && (T_IND & op.arg_type[i]) > 0)
 	{
-		if ((tr = asm_verif_dir_ind(strip[i], 1)) == -1)
+		if ((tr = asm_verif_dir_ind(strip[i], 0)) == -1)
 			return (asm_error_msg(data, LEXICAL_ERROR));
 		tr = tr == 1 ? tr + 2 : tr;
 	}
 	return (tr);
 }
 
-int				asm_verif_nb_arg(t_asm_data *data, int opcode, char **strip, int *cols)
+int				asm_verif_nb_arg(t_asm_data *data, int opcode,
+					char **strip, int *cols)
 {
 	int		i;
 	int		tr;
@@ -121,7 +123,8 @@ int				asm_verif_nb_arg(t_asm_data *data, int opcode, char **strip, int *cols)
 	return (ocp);
 }
 
-char			asm_verif_arg(t_asm_data *data, int opcode, char **strip, int *cols)
+char			asm_verif_arg(t_asm_data *data, int opcode,
+					char **strip, int *cols)
 {
 	char	ocp;
 
