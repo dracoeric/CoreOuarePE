@@ -58,6 +58,7 @@ fclean		:		clean
 					$(RM) $(NAME)
 
 re			:		
+					@make -C libft re
 					@make fclean
 					@make all
 

@@ -6,14 +6,14 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 15:33:03 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/13 19:47:02 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** opcode is in fact the index in g_op_tab, the instruction is at 
+** opcode is in fact the index in g_op_tab, the instruction is at
 ** g_op_tab[opcode].
 ** cols contains the column right before each arg.
 ** write the opcode, the OCP and argument in strip (eg opcode = 1,

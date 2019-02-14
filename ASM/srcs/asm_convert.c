@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/13 16:35:27 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/13 19:39:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 #include "libft.h"
 #include <stdlib.h>
 
+/*
+** parcour le fichier .s ligne par ligne en decodant les instructions,
+** en stockant les label et les trous, et en remplissant les trou.
+** retourne le bon message d'erreur si erreur.
+*/
+
 void				asm_convert(t_asm_data *data)
 {
 	char	*line;
 	int		ret;
 	char	opcode;
 
-	if (data == 0)
-		return ;
-	ft_putstr("asm_convert to do\n");
 	line = NULL;
 	while ((ret = get_next_line(data->fd, &line)) > 0)
 	{
@@ -43,9 +46,4 @@ void				asm_convert(t_asm_data *data)
 	}
 	if (ret == 0 && data->cursor == 0)
 		ft_putstr_fd("Error, missing instructions\n", 2);
-	/* 
-	** parcour le fichier .s ligne par ligne en decodant les instructions,
-	** en stockant les label et les trous, et en remplissant les trou.
-	** retourne le bon message d'erreur si erreur.
-	*/
 }
