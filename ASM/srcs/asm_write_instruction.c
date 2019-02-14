@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:57:40 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 19:05:48 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ static	int	asm_manage_direct(t_asm_data *data, int opcode, char *arg)
 
 	content = 0;
 	half_size = asm_op_tab(opcode).direct_is_half;
-	if (arg[1] == ':' && asm_manage_hole(data, arg + 2,
+	if (arg[1] == LABEL_CHAR && asm_manage_hole(data, arg + 2,
 		(half_size == 1 ? 2 : 4), opcode) < 0)
 		return (-1);
-	else
+	else if (arg[1] != LABEL_CHAR)
 	{
 		content = (half_size == 1 ? (int)asm_atoi_short(arg + 1)
 			: ft_atoi(arg + 1));
@@ -86,9 +86,9 @@ static	int	asm_manage_indirect(t_asm_data *data, int opcode, char *arg)
 	int		content;
 
 	content = 0;
-	if (arg[0] == ':' && asm_manage_hole(data, arg + 1, 2, opcode) < 0)
+	if (arg[0] == LABEL_CHAR && asm_manage_hole(data, arg + 1, 2, opcode) < 0)
 		return (-1);
-	else
+	else if (arg[0] != LABEL_CHAR)
 	{
 		content = (int)asm_atoi_short(arg);
 		if (asm_op_tab(opcode).opcode < 13
@@ -111,11 +111,11 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 	if ((ocp & 3) != 0)
 		return (-1);
 	data->buf[data->cursor++] = asm_op_tab(opcode).opcode;
-	if (ocp != 0)
+	if (asm_op_tab(opcode).ocp == 1)
 		data->buf[data->cursor++] = ocp;
 	i = 0;
 	ret = 1;
-	while (ret > 1 && i < asm_op_tab(opcode).nb_arg)
+	while (ret > 0 && i < asm_op_tab(opcode).nb_arg)
 	{
 		data->col = cols[i];
 		if ((ocp >> (6 - (2 * i)) & 3) == 1)

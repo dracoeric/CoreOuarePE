@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:56:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 16:07:14 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 19:37:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static	void	asm_holes_cpy(t_asm_data *data, t_label *new)
 		new[i].name = data->holes[i].name;
 		new[i].size = data->holes[i].size;
 		new[i].buf_position = data->holes[i].buf_position;
-		new[i].line = data->holes[i].line;
+		new[i].instruction_curs = data->holes[i].instruction_curs;
+		new[i].nb_byte = data->holes[i].nb_byte;
+		new[i].opcode = data->holes[i].opcode;
 		new[i].col = data->holes[i].col;
 		new[i].state = data->holes[i].state;
 		i++;
@@ -78,7 +80,8 @@ static	int		asm_malloc_holes(t_asm_data *data)
 	return (1);
 }
 
-static	int		asm_create_hole(t_asm_data *data, char *name)
+static	int		asm_create_hole(t_asm_data *data, char *name, int nb_byte,
+					int opcode)
 {
 	if (data->hol_curs >= data->holes_size)
 	{
@@ -89,10 +92,14 @@ static	int		asm_create_hole(t_asm_data *data, char *name)
 		return (ft_msg_int(2, "Failed malloc for holes.name.\n", -1));
 	data->holes[data->hol_curs].size = ft_strlen(name);
 	data->holes[data->hol_curs].buf_position = data->cursor;
+	data->holes[data->hol_curs].instruction_curs = data->instruction_cursor;
+	data->holes[data->hol_curs].nb_byte = nb_byte;
+	data->holes[data->hol_curs].opcode = opcode;
 	data->holes[data->hol_curs].line = data->line;
 	data->holes[data->hol_curs].col = data->col;
 	data->holes[data->hol_curs].state = 1;
 	data->hol_curs++;
+	data->cursor += nb_byte;
 	return (1);
 }
 
@@ -103,14 +110,12 @@ int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 	int	content;
 
 	if ((lab_index = asm_search_label(data, arg)) < 0
-		&& asm_create_hole(data, arg) < 0)
-	{
-		data->cursor += nb_byte;
+		&& asm_create_hole(data, arg, nb_byte, opcode) < 0)
 		return (-1);
-	}
-	else
+	else if (lab_index >= 0)
 	{
-		content = data->labels[lab_index].buf_position - data->cursor;
+		content = data->labels[lab_index].buf_position
+			- data->instruction_cursor;
 		if (nb_byte == 2)
 			content = content % 65536;
 		if (asm_op_tab(opcode).opcode < 13

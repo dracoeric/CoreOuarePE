@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 16:51:15 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:31:47 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 18:09:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ int	asm_dest_path(char *file, int len)
 		perror("asm");
 		return (-1);
 	}
+	ft_putstr("Writing output program to ");
+	ft_putstr(path);
+	ft_putstr(".\n");
 	return (fd);
 }

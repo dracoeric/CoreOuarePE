@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 16:31:13 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 18:52:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 	if (asm_strip_arg(data, line, strip, cols) < 0)
 		return (-1);
 	if (asm_write_instruction(data, opcode, strip, cols) < 0)
-		return (-1);
+		return (ft_msg_int(1, "WRITE INSTRUCTION FAILED\n", -1));
 	return (1);
 }

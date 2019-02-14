@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:31:33 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 19:31:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		asm_convert(t_asm_data *data)
 	{
 		data->line++;
 		data->col = 0;
+		data->instruction_cursor = data->cursor;
 		if (asm_go_to_tag(data, line) < 0)
 			ret = -1;
 		if (ret > 0 && (opcode = asm_match_tag(data, line)) < 0)
@@ -39,7 +40,7 @@ int		asm_convert(t_asm_data *data)
 			ret = -1;
 		free(line);
 		if (ret < 0)
-			return (-1);
+			return (ft_msg_int(1, "FAILED\n", -1));
 	}
 	if (ret < 0)
 		return (ft_msg_int(2, "Failed GNL.\n", -1));

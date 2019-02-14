@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 17:35:13 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/14 19:43:40 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define WRONG_NB_OF_ARG 6
 # define WRONG_REG_NUMBER 7
 # define WRONG_ARG_TYPE 8
+# define LABEL_DOES_NOT_EXIST 9
 
 typedef struct	s_op
 {
@@ -45,7 +46,9 @@ typedef	struct	s_label
 	char			*name;
 	int				size;
 	int				buf_position;
-	int				file_offset;
+	int				instruction_curs;
+	int				nb_byte;
+	int				opcode;
 	int				line;
 	int				col;
 	char			state;
@@ -60,7 +63,7 @@ typedef struct	s_asm_data
 	char	*buf;
 	int		buf_size;
 	int		cursor;
-	int		file_offset;
+	int		instruction_cursor;
 	t_label	*labels;
 	int		lab_size;
 	char	mallocked;
@@ -71,7 +74,6 @@ typedef struct	s_asm_data
 	char	options;	
 	int		line;
 	int		col;
-	int		error_code;
 }				t_asm_data;
 
 int				asm_error_msg(t_asm_data *data, int error_code);
@@ -101,4 +103,5 @@ int				asm_write_in_buf(t_asm_data *data, int content, int nb_byte);
 short			asm_atoi_short(char *str);
 int				asm_search_label(t_asm_data *data, char *name);
 int				asm_dest_path(char *file, int len);
+int				asm_fill_holes(t_asm_data *data);
 #endif
