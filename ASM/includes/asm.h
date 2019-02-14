@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:33:33 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:59:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ typedef struct	s_asm_data
 	int		dest_fd;
 	int		max_arg;
 	int		buf_header[HEADER_SIZE + 1];
-	char	buf[B_SIZE + 1];
+	char	*buf;
 	int		buf_size;
 	int		cursor;
 	int		file_offset;
-	t_label	labels[B_SIZE / 2];
+	t_label	*labels;
 	int		lab_size;
 	char	mallocked;
 	int		lab_curs;
-	t_label	holes[B_SIZE / 2];
+	t_label	*holes;
 	int		holes_size;
 	int		hol_curs;
 	int		line;
@@ -92,4 +92,11 @@ int				asm_write_instruction(t_asm_data *data, int opcode,
 t_op			asm_op_tab(int i);
 int				asm_max_arg(void);
 void			asm_create_ocp(char *ocp, int tr, int i);
+int				asm_write_instruction(t_asm_data *data, int opcode,
+					char **Strip, int *cols);
+int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
+					int opcode);
+int				asm_write_in_buf(t_asm_data *data, int content, int nb_byte);
+short			asm_atoi_short(char *str);
+int				asm_search_label(t_asm_data *data, char *name);
 #endif
