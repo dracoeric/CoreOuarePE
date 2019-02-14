@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/13 16:13:50 by pmasson          ###   ########.fr        #
+#    Updated: 2019/02/14 15:16:37 by pmasson          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,6 +20,7 @@ SRCS		=		main.c		op.c	asm_assemble.c			asm_get_header.c	\
 					asm_error_msg.c		asm_write_header.c		asm_go_to_tag.c		\
 					asm_convert.c		asm_match_tag.c			asm_manage_arg.c	\
 					asm_strip_arg.c		asm_verif_arg.c		asm_write_instruction.c	\
+					asm_create_ocp.c												\
 
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
