@@ -1,0 +1,226 @@
+asm_assemble.c:		data->labels[i].state = 0;
+asm_assemble.c:		data->holes[i].state = 0;
+asm_assemble.c:	data->fd = fd;
+asm_assemble.c:	data->dest_fd = -1;
+asm_assemble.c:	data->label_max_size = 1000;
+asm_assemble.c:	data->tag_max_size = asm_tag_max_size();
+asm_assemble.c:	data->cursor = 0;
+asm_assemble.c:	data->instruction_cursor = 0;
+asm_assemble.c:	data->lab_curs = 0;
+asm_assemble.c:	data->hol_curs = 0;
+asm_assemble.c:	data->line = 0;
+asm_assemble.c:	data->col = 0;
+asm_assemble.c:	data->mallocked = 0;
+asm_assemble.c:	data->lab_size = B_SIZE / 2;
+asm_assemble.c:	data->holes_size = B_SIZE / 2;
+asm_assemble.c:	data->buf_size = B_SIZE + 1;
+asm_assemble.c:	data->options = options;
+asm_assemble.c:	ft_bzero(data->buf, B_SIZE + 1);
+asm_assemble.c:	if ((data->dest_fd = asm_dest_path(file, ft_strlen(file))) < 0)
+asm_assemble.c:	write(data->dest_fd, data->buf, data->cursor);
+asm_assemble.c:	close(data->dest_fd);
+asm_assemble.c:	data->buf = buf;
+asm_assemble.c:	data->labels = labels;
+asm_assemble.c:	data->holes = holes;
+asm_assemble.c:	header->prog_size = data->cursor;
+asm_assemble.c:	if (data->cursor > CHAMP_MAX_SIZE)
+asm_convert.c:	while ((ret = get_next_line(data->fd, &line)) > 0)
+asm_convert.c:		data->line++;
+asm_convert.c:		data->col = 0;
+asm_convert.c:		data->instruction_cursor = data->cursor;
+asm_convert.c:	if (ret == 0 && data->cursor == 0)
+asm_error_msg.c:	ft_putnbr_fd(data->line, 2);
+asm_error_msg.c:	ft_putnbr_fd(data->col, 2);
+asm_fill_holes.c:	current_cursor = data->cursor;
+asm_fill_holes.c:	while (i < data->hol_curs)
+asm_fill_holes.c:		if ((lab_index = asm_search_label(data, data->holes[i].name)) < 0)
+asm_fill_holes.c:		data->cursor = data->holes[i].buf_position;
+asm_fill_holes.c:		content = data->labels[lab_index].buf_position
+asm_fill_holes.c:			- data->holes[i].instruction_curs;
+asm_fill_holes.c:		if (data->holes[i].nb_byte == 2)
+asm_fill_holes.c:		if (asm_op_tab(data->holes[i].opcode).opcode < 13
+asm_fill_holes.c:			&& asm_op_tab(data->holes[i].opcode).opcode > 15)
+asm_fill_holes.c:		if (asm_write_in_buf(data, content, data->holes[i].nb_byte) < 0)
+asm_fill_holes.c:	data->cursor = current_cursor;
+asm_free_data.c:	asm_free_names(data->labels, data->lab_curs);
+asm_free_data.c:	asm_free_names(data->holes, data->hol_curs);
+asm_free_data.c:	if ((data->mallocked & 1) == 1)
+asm_free_data.c:		free(data->labels);
+asm_free_data.c:	if ((data->mallocked & 2) == 2)
+asm_free_data.c:		free(data->holes);
+asm_free_data.c:	if ((data->mallocked & 4) == 4)
+asm_free_data.c:		free(data->buf);
+asm_get_header.c:	i = data->col;
+asm_get_header.c:		   && ((int)i - data->col) < data->tag_max_size)
+asm_get_header.c:	if (ft_strcmp(line + data->col, NAME_CMD_STRING) == 0)
+asm_get_header.c:	if (ft_strcmp(line + data->col, COMMENT_CMD_STRING) == 0)
+asm_get_header.c:		data->col = i;
+asm_get_header.c:	while (line[data->col] != '"' && line[data->col] != '\0')
+asm_get_header.c:		data->col++;
+asm_get_header.c:	if (line[data->col] != '"')
+asm_get_header.c:	if (line[data->col] != '\0')
+asm_get_header.c:		line[data->col] = '\0';
+asm_get_header.c:		data->col++;
+asm_get_header.c:	data->col = 0;
+asm_get_header.c:	while (line[data->col] != '\0' && (line[data->col] == ' '
+asm_get_header.c:		|| line[data->col] == '\t'))
+asm_get_header.c:		data->col++;
+asm_get_header.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_get_header.c:	while (line[data->col] != '\0' && (line[data->col] == ' '
+asm_get_header.c:		|| line[data->col] == '\t'))
+asm_get_header.c:		data->col++;
+asm_get_header.c:	if (line[data->col] != '"')
+asm_get_header.c:	data->col++;
+asm_get_header.c:	*strip = line + (data->col);
+asm_get_header.c:	while (line[data->col] != '\0' && (line[data->col] == ' '
+asm_get_header.c:		|| line[data->col] == '\t'))
+asm_get_header.c:		data->col++;
+asm_get_header.c:	if (!(line[data->col] != '\0' || line[data->col] != COMMENT_CHAR))
+asm_get_header.c:		ret = get_next_line(data->fd, &line);
+asm_get_header.c:			data->line++;
+asm_get_header.c:			data->col = 0;
+asm_go_to_tag.c:	i = data->lab_curs;
+asm_go_to_tag.c:	while (i < data->lab_size)
+asm_go_to_tag.c:		data->labels[i].state = 0;
+asm_go_to_tag.c:	while (i < data->lab_curs)
+asm_go_to_tag.c:		new[i].name = data->labels[i].name;
+asm_go_to_tag.c:		new[i].size = data->labels[i].size;
+asm_go_to_tag.c:		new[i].buf_position = data->labels[i].buf_position;
+asm_go_to_tag.c:		new[i].line = data->labels[i].line;
+asm_go_to_tag.c:		new[i].col = data->labels[i].col;
+asm_go_to_tag.c:		new[i].state = data->labels[i].state;
+asm_go_to_tag.c:	if ((data->lab_size + B_SIZE / 2) > 1000000)
+asm_go_to_tag.c:	if ((data->mallocked & 1) == 1)
+asm_go_to_tag.c:		if (!(data->labels = (t_label *)realloc(data->labels,
+asm_go_to_tag.c:				sizeof(t_label) * (data->lab_size + B_SIZE / 2))))
+asm_go_to_tag.c:		data->lab_size = data->lab_size + B_SIZE / 2;
+asm_go_to_tag.c:		data->mallocked = (data->mallocked | 1);
+asm_go_to_tag.c:		data->lab_size = B_SIZE;
+asm_go_to_tag.c:		data->labels = new;
+asm_go_to_tag.c:	if (data->lab_curs >= data->lab_size)
+asm_go_to_tag.c:	if (!(data->labels[data->lab_curs].name = ft_strsub(line, data->col, i)))
+asm_go_to_tag.c:	data->labels[data->lab_curs].size = i;
+asm_go_to_tag.c:	data->labels[data->lab_curs].buf_position = data->cursor;
+asm_go_to_tag.c:	data->labels[data->lab_curs].line = data->line;
+asm_go_to_tag.c:	data->labels[data->lab_curs].col = data->col;
+asm_go_to_tag.c:	data->labels[data->lab_curs].state = 1;
+asm_go_to_tag.c:	data->lab_curs++;
+asm_go_to_tag.c:	while (line[data->col] != '\0' && (line[data->col] == ' ' ||
+asm_go_to_tag.c:			line[data->col] == '\t'))
+asm_go_to_tag.c:		data->col++;
+asm_go_to_tag.c:	while (ft_char_in_str(line[data->col + i], str_lab) == 1)
+asm_go_to_tag.c:	if (i > 0 && line[data->col + i] == LABEL_CHAR)
+asm_go_to_tag.c:		data->col = data->col + i + 1;
+asm_go_to_tag.c:		while (line[data->col] == ' ' || line[data->col] == '\t')
+asm_go_to_tag.c:			data->col++;
+asm_go_to_tag.c:	else if (line[data->col] == LABEL_CHAR)
+asm_go_to_tag.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_manage_arg.c:	char	*strip[data->max_arg + 1];
+asm_manage_arg.c:	int		cols[data->max_arg];
+asm_manage_arg.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_manage_arg.c:	while (line[data->col] == ' ' || line[data->col] == '\t')
+asm_manage_arg.c:		data->col++;
+asm_manage_arg.c:	if (line[data->col] == '\0')
+asm_manage_arg.c:	ft_bzero(cols, sizeof(int) * data->max_arg);
+asm_manage_arg.c:	while (i <= data->max_arg)
+asm_manage_hole.c:** Attempts to fill hole by going through data->labels.
+asm_manage_hole.c:** Otherwise, create a hole pointing to data->cursor. If data->holes too small,
+asm_manage_hole.c:** malloc, then realloc it, setting data->malloced as needed.
+asm_manage_hole.c:	i = data->hol_curs;
+asm_manage_hole.c:	while (i < data->hol_curs)
+asm_manage_hole.c:		data->holes[i].state = 0;
+asm_manage_hole.c:	while (i < data->hol_curs)
+asm_manage_hole.c:		new[i].name = data->holes[i].name;
+asm_manage_hole.c:		new[i].size = data->holes[i].size;
+asm_manage_hole.c:		new[i].buf_position = data->holes[i].buf_position;
+asm_manage_hole.c:		new[i].instruction_curs = data->holes[i].instruction_curs;
+asm_manage_hole.c:		new[i].nb_byte = data->holes[i].nb_byte;
+asm_manage_hole.c:		new[i].opcode = data->holes[i].opcode;
+asm_manage_hole.c:		new[i].col = data->holes[i].col;
+asm_manage_hole.c:		new[i].state = data->holes[i].state;
+asm_manage_hole.c:	if ((data->holes_size + B_SIZE / 2) > 1000000)
+asm_manage_hole.c:	if ((data->mallocked & 2) == 2)
+asm_manage_hole.c:		if (!(data->holes = (t_label *)realloc(data->holes, sizeof(t_label)
+asm_manage_hole.c:			* (data->holes_size + B_SIZE / 2))))
+asm_manage_hole.c:		data->holes_size = data->holes_size + B_SIZE / 2;
+asm_manage_hole.c:		data->mallocked = (data->mallocked | 2);
+asm_manage_hole.c:		data->holes_size = B_SIZE;
+asm_manage_hole.c:		data->holes = new;
+asm_manage_hole.c:	if (data->hol_curs >= data->holes_size)
+asm_manage_hole.c:	if (!(data->holes[data->hol_curs].name = ft_strdup(name)))
+asm_manage_hole.c:	data->holes[data->hol_curs].size = ft_strlen(name);
+asm_manage_hole.c:	data->holes[data->hol_curs].buf_position = data->cursor;
+asm_manage_hole.c:	data->holes[data->hol_curs].instruction_curs = data->instruction_cursor;
+asm_manage_hole.c:	data->holes[data->hol_curs].nb_byte = nb_byte;
+asm_manage_hole.c:	data->holes[data->hol_curs].opcode = opcode;
+asm_manage_hole.c:	data->holes[data->hol_curs].line = data->line;
+asm_manage_hole.c:	data->holes[data->hol_curs].col = data->col;
+asm_manage_hole.c:	data->holes[data->hol_curs].state = 1;
+asm_manage_hole.c:	data->hol_curs++;
+asm_manage_hole.c:	data->cursor += nb_byte;
+asm_manage_hole.c:		content = data->labels[lab_index].buf_position
+asm_manage_hole.c:			- data->instruction_cursor;
+asm_match_tag.c:** line[data->col] doit pointer sur un tag,
+asm_match_tag.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_match_tag.c:	i = data->col;
+asm_match_tag.c:		   && line[i] != COMMENT_CHAR && (i - data->col) < data->tag_max_size)
+asm_match_tag.c:		if (ft_strcmp(line + data->col, asm_op_tab(j).tag) == 0)
+asm_match_tag.c:			data->col = i;
+asm_search_label.c:	while (i < data->lab_curs)
+asm_search_label.c:		if (ft_strcmp(name, data->labels[i].name) == 0)
+asm_strip_arg.c:	while (line[data->col] != ' ' && line[data->col] != '\t'
+asm_strip_arg.c:		&& line[data->col] != '\0' && line[data->col] != COMMENT_CHAR
+asm_strip_arg.c:		&& line[data->col] != SEPARATOR_CHAR)
+asm_strip_arg.c:		data->col++;
+asm_strip_arg.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_strip_arg.c:	*nb_sep += (line[data->col] == SEPARATOR_CHAR ? 1 : 0);
+asm_strip_arg.c:	line[data->col++] = '\0';
+asm_strip_arg.c:	while (line[data->col] == ' ' || line[data->col] == '\t')
+asm_strip_arg.c:		data->col++;
+asm_strip_arg.c:	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+asm_strip_arg.c:	if ((line[data->col] != SEPARATOR_CHAR && *nb_sep == i)
+asm_strip_arg.c:		|| (line[data->col] == SEPARATOR_CHAR && *nb_sep == i + 1))
+asm_strip_arg.c:	*nb_sep += (line[data->col] == SEPARATOR_CHAR ? 1 : 0);
+asm_strip_arg.c:	data->col += (line[data->col] == SEPARATOR_CHAR ? 1 : 0);
+asm_strip_arg.c:	while (line[data->col] == ' ' || line[data->col] == '\t')
+asm_strip_arg.c:		data->col++;
+asm_strip_arg.c:	while (i < data->max_arg)
+asm_strip_arg.c:		cols[i] = data->col;
+asm_strip_arg.c:		if (line[data->col] != '\0' && line[data->col] != COMMENT_CHAR)
+asm_strip_arg.c:			strip[i] = line + data->col;
+asm_strip_arg.c:			i = data->max_arg;
+asm_strip_arg.c:	if (nb_sep >= data->max_arg || (strip[nb_sep] == 0))
+asm_strip_arg.c:	if (line[data->col] != '\0' && line[data->col] != COMMENT_CHAR)
+asm_verif_arg.c:		data->col = cols[i];
+asm_write_header.c:** ecrit le contenut de header dans le fichier pointe par data->dest_fd
+asm_write_header.c:	write(data->dest_fd, ptr + 3, 1);
+asm_write_header.c:	write(data->dest_fd, ptr + 2, 1);
+asm_write_header.c:	write(data->dest_fd, ptr + 1, 1);
+asm_write_header.c:	write(data->dest_fd, ptr, 1);
+asm_write_header.c:	write(data->dest_fd, ptr, COMMENT_LENGTH + 1);
+asm_write_header.c:		write(data->dest_fd, "\0", 1);
+asm_write_header.c:	write(data->dest_fd, ptr + 3, 1);
+asm_write_header.c:	write(data->dest_fd, ptr + 2, 1);
+asm_write_header.c:	write(data->dest_fd, ptr + 1, 1);
+asm_write_header.c:	write(data->dest_fd, ptr, 1);
+asm_write_header.c:	write(data->dest_fd, ptr, PROG_NAME_LENGTH + 1);
+asm_write_header.c:		write(data->dest_fd, "\0", 1);
+asm_write_in_buf.c:** write nb_byte of arg in data->buf and update data->cursor.
+asm_write_in_buf.c:** if buf is too small, malloc, then realloc it, setting data->mallocked
+asm_write_in_buf.c:	if (data->buf_size + B_SIZE > 10000000 && (data->options & 1) == 0)
+asm_write_in_buf.c:	if ((data->mallocked & 4) == 0)
+asm_write_in_buf.c:		if (!(new = (char *)malloc(sizeof(char) * (data->buf_size + B_SIZE))))
+asm_write_in_buf.c:		new = ft_strncpy(new, data->buf, data->cursor);
+asm_write_in_buf.c:		data->mallocked = (data->mallocked | 4);
+asm_write_in_buf.c:		data->buf_size = data->buf_size + B_SIZE;
+asm_write_in_buf.c:		data->buf = new;
+asm_write_in_buf.c:		if (!(data->buf = (char *)realloc(data->buf, sizeof(char) * (data->buf_size + B_SIZE))))
+asm_write_in_buf.c:		data->buf_size = data->buf_size + B_SIZE;
+asm_write_in_buf.c:	while (data->cursor + nb_bytes >= data->buf_size)
+asm_write_in_buf.c:		data->buf[data->cursor + nb_bytes - i - 1] = str[i];
+asm_write_in_buf.c:	data->cursor = data->cursor + nb_bytes;
+asm_write_instruction.c:** it, then set data->malloced as needed.
+asm_write_instruction.c:** Also search in data->label if holes can be filled.
+asm_write_instruction.c:	//data->buf[data->cursor++] = asm_op_tab(opcode).opcode;
+asm_write_instruction.c:		data->buf[data->cursor++] = ocp;
+asm_write_instruction.c:		data->col = cols[i];

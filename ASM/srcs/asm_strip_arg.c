@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:21:00 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 12:42:34 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:12:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			asm_strip_arg(t_asm_data *data, char *line, char **strip,
 
 	i = 0;
 	nb_sep = 0;
-	while (i < data->max_arg)
+	while (i < 3)
 	{
 		cols[i] = data->col;
 		if (line[data->col] != '\0' && line[data->col] != COMMENT_CHAR)
@@ -62,10 +62,10 @@ int			asm_strip_arg(t_asm_data *data, char *line, char **strip,
 		if ((ret = asm_get_arg(data, line, &nb_sep, i)) < 0)
 			return (-1);
 		if (ret == 0)
-			i = data->max_arg;
+			i = 3;
 		i++;
 	}
-	if (nb_sep >= data->max_arg || (strip[nb_sep] == 0))
+	if (nb_sep >= 3 || (strip[nb_sep] == 0))
 		return (asm_error_msg(data, WRONG_NB_OF_ARG));
 	if (line[data->col] != '\0' && line[data->col] != COMMENT_CHAR)
 		return (asm_error_msg(data, SYNTAX_ERROR));

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 09:31:00 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:08:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,32 @@ static	void		asm_init_labels(t_asm_data *data)
 	}
 }
 
+static	int			asm_tag_max_size(void)
+{
+	int 			i;
+	unsigned int	max;
+
+	i = 0;
+	max = 0;
+	while (asm_op_tab(i).tag != 0)
+	{
+		if (ft_strlen(asm_op_tab(i).tag) > max)
+			max = ft_strlen(asm_op_tab(i).tag);
+		i++;
+	}
+	if (ft_strlen(NAME_CMD_STRING) > max)
+		max = ft_strlen(NAME_CMD_STRING);
+	if (ft_strlen(COMMENT_CMD_STRING) > max)
+		max = ft_strlen(COMMENT_CMD_STRING);
+	return (max);
+}
+
 static	int			asm_init_data(t_asm_data *data, int fd, char options)
 {
 	data->fd = fd;
 	data->dest_fd = -1;
-	data->max_arg = asm_max_arg();
-	if (data->max_arg > 3)
-		return (0);
+	data->label_max_size = 1000;
+	data->tag_max_size = asm_tag_max_size();
 	data->cursor = 0;
 	data->instruction_cursor = 0;
 	data->lab_curs = 0;

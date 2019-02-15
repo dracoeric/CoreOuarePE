@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 12:42:31 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:11:07 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		asm_match_tag(t_asm_data *data, char *line)
 	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
 		return (0);
 	i = data->col;
-	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0'
-		&& line[i] != COMMENT_CHAR)
+	while (line[i] != ' ' && ((int)i - data->col) < data->tag_max_size
+		&& line[i] != '\t' && line[i] != '\0' && line[i] != COMMENT_CHAR) 
 		i++;
 	if (line[i] == '\0' || line[i] == COMMENT_CHAR)
 		return (asm_error_msg(data, MISSING_ARGUMENT));
