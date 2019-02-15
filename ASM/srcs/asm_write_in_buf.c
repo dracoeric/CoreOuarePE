@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 10:55:37 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 16:10:04 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ int			asm_malloc_buf(t_asm_data *data)
 	{
 		if (!(new = (char *)malloc(sizeof(char) * (data->buf_size + B_SIZE))))
 			return (ft_msg_int(2, "failed malloc buff.\n", -1));
-		new = ft_strncpy(new, data->buf, data->cursor);
+		new = ft_memcpy(new, data->buf, data->cursor);
 		data->mallocked = (data->mallocked | 4);
 		data->buf_size = data->buf_size + B_SIZE;
 		data->buf = new;
 	}
 	else
 	{
-		if (!(data->buf = (char *)realloc(data->buf, sizeof(char) * (data->buf_size + B_SIZE))))
+		if (!(str = (char *)realloc(data->buf,
+						sizeof(char) * (data->buf_size + B_SIZE))))
 			return (ft_msg_int(2, "failed realloc buff.\n", -1));
-		//freee ancien buff si fail;
+		data->buf = str;
 		data->buf_size = data->buf_size + B_SIZE;
 	}
 	return (1);
