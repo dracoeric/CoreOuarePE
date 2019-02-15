@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:26:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 18:22:23 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 13:23:36 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int				asm_verif_dir_ind(char *strip, int dir)
 		return (-1);
 	}
 	i = strip[i] == '-' ? i + 1 : i;
+	if (ft_isdigit(strip[i]) == 0)
+		return (-1);
 	while (ft_isdigit(strip[i]) == 1)
 		i++;
 	if (strip[i] == '\0')
