@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 19:49:52 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 10:55:37 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** return -1 if malloc fails, 1 otherwise.
 */
 
-int			asm_malloc_buff(t_asm_data *data)
+int			asm_malloc_buf(t_asm_data *data)
 {
 	char	*new;
 	char	*str;
@@ -29,19 +29,20 @@ int			asm_malloc_buff(t_asm_data *data)
 	str = "Warning, abort champ too big, rerun with -c to force\n";
 	if (data->buf_size + B_SIZE > 10000000 && (data->options & 1) == 0)
 		return (ft_msg_int(1, str, -1));
-	if ((data->mallocked & 3) == 0)
+	if ((data->mallocked & 4) == 0)
 	{
 		if (!(new = (char *)malloc(sizeof(char) * (data->buf_size + B_SIZE))))
 			return (ft_msg_int(2, "failed malloc buff.\n", -1));
 		new = ft_strncpy(new, data->buf, data->cursor);
-		data->mallocked = (data->mallocked | 3);
+		data->mallocked = (data->mallocked | 4);
 		data->buf_size = data->buf_size + B_SIZE;
 		data->buf = new;
 	}
 	else
 	{
-		if (!(realloc(data->buf, sizeof(char) * (data->buf_size + B_SIZE))))
+		if (!(data->buf = (char *)realloc(data->buf, sizeof(char) * (data->buf_size + B_SIZE))))
 			return (ft_msg_int(2, "failed realloc buff.\n", -1));
+		//freee ancien buff si fail;
 		data->buf_size = data->buf_size + B_SIZE;
 	}
 	return (1);
@@ -53,9 +54,9 @@ int			asm_write_in_buf(t_asm_data *data, int arg, int nb_bytes)
 	unsigned char	*str;
 
 	i = 0;
-	if (data->cursor + nb_bytes >= data->buf_size)
+	while (data->cursor + nb_bytes >= data->buf_size)
 	{
-		if (asm_malloc_buff(data) < 0)
+		if (asm_malloc_buf(data) < 0)
 			return (-1);
 	}
 	str = (unsigned char *)&arg;

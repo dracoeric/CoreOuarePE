@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 19:05:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 10:55:39 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,9 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 	ocp = asm_verif_arg(data, opcode, strip, cols);
 	if ((ocp & 3) != 0)
 		return (-1);
-	data->buf[data->cursor++] = asm_op_tab(opcode).opcode;
+	if (asm_write_in_buf(data, opcode + 1, 1) < 0)
+		return (-1);
+	//data->buf[data->cursor++] = asm_op_tab(opcode).opcode;
 	if (asm_op_tab(opcode).ocp == 1)
 		data->buf[data->cursor++] = ocp;
 	i = 0;

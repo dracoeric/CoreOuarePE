@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:40:12 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 10:48:25 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static	void	asm_labels_cpy(t_asm_data *data, t_label *new)
 	}
 }
 
+#include <stdio.h>
 static	int		asm_malloc_labels(t_asm_data *data)
 {
 	t_label	*new;
@@ -50,9 +51,9 @@ static	int		asm_malloc_labels(t_asm_data *data)
 	new = NULL;
 	if ((data->lab_size + B_SIZE / 2) > 1000000)
 		return (ft_msg_int(2, "fail, lab_size too big.\n", -1));
-	if (data->mallocked & 1)
+	if ((data->mallocked & 1) == 1)
 	{
-		if (!((t_label *)realloc(data->labels,
+		if (!(data->labels = (t_label *)realloc(data->labels,
 				sizeof(t_label) * (data->lab_size + B_SIZE / 2))))
 			return (ft_msg_int(2, "failed realloc labels.\n", -1));
 		data->lab_size = data->lab_size + B_SIZE / 2;
