@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 16:22:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 17:17:34 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static	int			asm_get_string(t_asm_data *data, char *line, int *param)
 		> ((*param & 1) ? PROG_NAME_LENGTH : COMMENT_LENGTH))
 		return (ft_msg_int(2, "Error, name or comment too long.\n", -1));
 	if (line[data->col] == '\0')
-		*param += (*param & 1 ? 4 : 8);
+		*param += (*param & 1 ? (*param | 4) : (*param | 8));
 	else if (line[data->col] == '"')
 	{
 		line[data->col++] = '\0';
-		*param = (*param & 1 ? 1 : 2);
+		*param = (*param & 1 ? *param : (*param | 2));
 		while (line[data->col] == ' ' || line[data->col] == '\t')
 			data->col++;
 		if (!(line[data->col] == '\0' || line[data->col] == COMMENT_CHAR))
@@ -69,12 +69,15 @@ static	int			asm_write_in_header(t_asm_data *data, char *strip,
 	char *str;
 
 	str = (*param & 1 ? header->prog_name : header->comment);
-	ft_strcpy(header->prog_name + data->header_curs, strip);
+	ft_strcpy(str + data->header_curs, strip);
 	data->header_curs += ft_strlen(strip);
-	if (*param & 12)
-		header->prog_name[data->header_curs++] = '\n';
+	if ((*param & 12) != 0)
+		str[data->header_curs++] = '\n';
 	else
-		*param += (*param & 1 ? 16 : 32);
+	{
+		*param += ((*param & 1) == 1 ? 15 : 30);
+		data->header_curs = 0;
+	}
 	return (1);
 }
 
@@ -84,6 +87,7 @@ static	int			asm_header_read(t_asm_data *data, char *line, t_header *header,
 	char	*strip;
 	int		ret;
 
+	ft_printf("param = %d, line = '%s'\n", *param, line + data->col);
 	if (((*param >> 2) & 3) != 0)
 	{
 		strip = line;
@@ -93,7 +97,7 @@ static	int			asm_header_read(t_asm_data *data, char *line, t_header *header,
 	else if ((ret = asm_strip_line(data, line, &strip, param)) < 0)
 		return (-1);
 	if (ret == 0)
-		return (0);
+		return (1);
 	if (asm_write_in_header(data, strip, header, param) < 0)
 		return (-1);
 	return (1);
