@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 15:18:17 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 11:56:56 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static	int		asm_strip_line(t_asm_data *data, char *line, char **strip)
 	while (line[data->col] != '\0' && (line[data->col] == ' '
 		|| line[data->col] == '\t'))
 		data->col++;
-	if (line[data->col] == '\0')
+	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
 		return (0);
 	if ((name_or_com = asm_match_name_or_comment(data, line)) < 0)
 		return (-1);

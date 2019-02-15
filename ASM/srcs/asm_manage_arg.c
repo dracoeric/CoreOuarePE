@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 18:52:07 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/15 11:50:01 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 	int		cols[data->max_arg];
 	int		i;
 
-	if (line[data->col] == '\0')
+	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
 		return (0);
 	while (line[data->col] == ' ' || line[data->col] == '\t')
 		data->col++;

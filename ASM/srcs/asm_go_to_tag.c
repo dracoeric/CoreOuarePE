@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 10:48:25 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 11:56:53 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static	void	asm_labels_cpy(t_asm_data *data, t_label *new)
 	}
 }
 
-#include <stdio.h>
 static	int		asm_malloc_labels(t_asm_data *data)
 {
 	t_label	*new;

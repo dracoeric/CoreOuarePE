@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:56:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 10:48:28 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/15 11:38:59 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static	void	asm_holes_cpy(t_asm_data *data, t_label *new)
 	int i;
 
 	i = 0;
-	while (i < data->lab_curs)
+	while (i < data->hol_curs)
 	{
 		new[i].name = data->holes[i].name;
 		new[i].size = data->holes[i].size;
@@ -66,6 +66,7 @@ static	int		asm_malloc_holes(t_asm_data *data)
 		if (!(data->holes = (t_label *)realloc(data->holes, sizeof(t_label)
 			* (data->holes_size + B_SIZE / 2))))
 			return (ft_msg_int(2, "Failed realloc for Holes.\n", -1));
+		data->holes_size = data->holes_size + B_SIZE / 2;
 	}
 	else
 	{
