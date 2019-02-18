@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 16:11:59 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 09:39:36 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct	s_asm_data
 	t_label	*holes;
 	int		holes_size;
 	int		hol_curs;
-	char	options;	
+	char	options;
 	int		line;
 	int		col;
 }				t_asm_data;
@@ -81,7 +81,7 @@ int				asm_error_msg(t_asm_data *data, int error_code);
 void			asm_assemble(int fd, char *file, char options);
 int				asm_match_name_or_comment(t_asm_data *data, char *line,
 					int *param);
-int				asm_get_header(t_asm_data *data, t_header *header);
+int				asm_get_header(t_asm_data *data, t_header *header, int ret);
 int				asm_next_line(int fd, char **line);
 int				asm_convert(t_asm_data *data);
 void			asm_free_data(t_asm_data *data);
@@ -99,7 +99,7 @@ t_op			asm_op_tab(int i);
 int				asm_max_arg(void);
 void			asm_create_ocp(char *ocp, int tr, int i);
 int				asm_write_instruction(t_asm_data *data, int opcode,
-					char **Strip, int *cols);
+					char **strip, int *cols);
 int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 					int opcode);
 int				asm_write_in_buf(t_asm_data *data, int content, int nb_byte);

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:26:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 16:13:24 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 09:32:18 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ int				asm_verif_reg(char *strip)
 	return (1);
 }
 
-int				asm_verif_dir_ind(char *strip, int dir)
+int				asm_verif_dir_ind(char *strip, int dir, int i)
 {
-	int		i;
 	char	*str_lab;
 
 	str_lab = LABEL_CHARS;
-	i = 0;
 	if (dir == 1 && strip[i] != DIRECT_CHAR)
 		return (0);
 	else if (dir == 1)
@@ -83,13 +81,13 @@ int				asm_verif_type_arg(t_asm_data *data, t_op op,
 	}
 	if (tr == 0 && (T_DIR & op.arg_type[i]) > 0)
 	{
-		if ((tr = asm_verif_dir_ind(strip[i], 1)) == -1)
+		if ((tr = asm_verif_dir_ind(strip[i], 1, 0)) == -1)
 			return (asm_error_msg(data, LEXICAL_ERROR));
 		tr = tr == 1 ? tr + 1 : tr;
 	}
 	if (tr == 0 && (T_IND & op.arg_type[i]) > 0)
 	{
-		if ((tr = asm_verif_dir_ind(strip[i], 0)) == -1)
+		if ((tr = asm_verif_dir_ind(strip[i], 0, 0)) == -1)
 			return (asm_error_msg(data, LEXICAL_ERROR));
 		tr = tr == 1 ? tr + 2 : tr;
 	}

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 17:07:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 09:25:45 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	void		asm_init_labels(t_asm_data *data)
 
 static	int			asm_tag_max_size(void)
 {
-	int 			i;
+	int				i;
 	unsigned int	max;
 
 	i = 0;
@@ -102,7 +102,7 @@ void				asm_assemble(int fd, char *file, char options)
 	header->magic = COREWAR_EXEC_MAGIC;
 	if (asm_init_data(data, fd, options) < 0)
 		exit(ft_msg_int(2, "Max number of arg over 100\n", 0));
-	if (asm_get_header(data, header) < 0)
+	if (asm_get_header(data, header, 1) < 0)
 		return ;
 	if (asm_convert(data) < 0)
 	{

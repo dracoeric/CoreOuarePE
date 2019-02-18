@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 09:28:06 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 09:36:35 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		asm_get_options(char *options, int *i, char **argv)
 
 int			main(int argc, char **argv)
 {
-	int 	i;
+	int		i;
 	int		fd;
 	char	options;
 

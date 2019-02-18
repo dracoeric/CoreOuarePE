@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 16:10:04 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 09:16:29 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int			asm_malloc_buf(t_asm_data *data)
 	}
 	else
 	{
-		if (!(str = (char *)realloc(data->buf,
+		if (!(new = (char *)realloc(data->buf,
 						sizeof(char) * (data->buf_size + B_SIZE))))
 			return (ft_msg_int(2, "failed realloc buff.\n", -1));
-		data->buf = str;
+		data->buf = new;
 		data->buf_size = data->buf_size + B_SIZE;
 	}
 	return (1);

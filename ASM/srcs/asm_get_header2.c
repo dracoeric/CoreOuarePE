@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/17 19:26:46 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 09:29:13 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ static	int			asm_get_string(t_asm_data *data, char *line, int *param)
 static	int			asm_strip_line(t_asm_data *data, char *line, char **strip,
 					int *param)
 {
+	char *str;
+
+	str = "Error, two '.name' or '.comment' instruction.\n";
 	while (line[data->col] == ' ' || line[data->col] == '\t')
 		data->col++;
 	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
@@ -53,8 +56,7 @@ static	int			asm_strip_line(t_asm_data *data, char *line, char **strip,
 		return (-1);
 	if (((*param & 1) != 0 && (*param & 16) != 0)
 		|| ((*param & 2) != 0 && (*param & 32) != 0))
-		return (ft_msg_int(2,
-			"Error, two '.name' or '.comment' instruction.\n", -1));
+		return (ft_msg_int(2, str, -1));
 	while (line[data->col] == ' ' || line[data->col] == '\t')
 		data->col++;
 	if (line[data->col++] != '"')
@@ -67,7 +69,7 @@ static	int			asm_write_in_header(t_asm_data *data, char *strip,
 					t_header *header, int *param)
 {
 	char *str;
-	
+
 	str = (*param & 1 ? header->prog_name : header->comment);
 	ft_strcpy(str + data->header_curs, strip);
 	data->header_curs += ft_strlen(strip);
@@ -81,8 +83,8 @@ static	int			asm_write_in_header(t_asm_data *data, char *strip,
 	return (1);
 }
 
-static	int			asm_header_read(t_asm_data *data, char *line, t_header *header,
-					int	*param)
+static	int			asm_header_read(t_asm_data *data, char *line,
+					t_header *header, int *param)
 {
 	char	*strip;
 	int		ret;
@@ -102,17 +104,15 @@ static	int			asm_header_read(t_asm_data *data, char *line, t_header *header,
 	return (1);
 }
 
-int				asm_get_header(t_asm_data *data, t_header *header)
+int					asm_get_header(t_asm_data *data, t_header *header, int ret)
 {
 	char		*line;
 	int			param;
-	int			ret;
 
 	if (data == 0)
 		return (-1);
 	param = 0;
 	line = NULL;
-	ret = 1;
 	while (param != 48 && ret > 0)
 	{
 		ret = get_next_line(data->fd, &line);
