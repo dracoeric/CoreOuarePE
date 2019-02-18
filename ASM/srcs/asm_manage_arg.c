@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 17:08:36 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 10:23:15 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 		return (0);
 	while (line[data->col] == ' ' || line[data->col] == '\t')
 		data->col++;
-	if (line[data->col] == '\0')
+	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
 		return (asm_error_msg(data, MISSING_ARGUMENT));
 	ft_bzero(cols, sizeof(int) * 3);
 	i = 0;

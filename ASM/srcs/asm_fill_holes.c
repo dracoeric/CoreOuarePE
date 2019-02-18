@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:06:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/14 19:44:45 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 10:20:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		asm_fill_holes(t_asm_data *data)
 	current_cursor = data->cursor;
 	while (i < data->hol_curs)
 	{
+		data->line = data->holes[i].line;
 		if ((lab_index = asm_search_label(data, data->holes[i].name)) < 0)
 			return (asm_error_msg(data, LABEL_DOES_NOT_EXIST));
 		data->cursor = data->holes[i].buf_position;
@@ -38,9 +39,8 @@ int		asm_fill_holes(t_asm_data *data)
 		if (asm_op_tab(data->holes[i].opcode).opcode < 13
 			&& asm_op_tab(data->holes[i].opcode).opcode > 15)
 			content = content % IDX_MOD;
-		if (asm_write_in_buf(data, content, data->holes[i].nb_byte) < 0)
+		if (asm_write_in_buf(data, content, data->holes[i++].nb_byte) < 0)
 			return (-1);
-		i++;
 	}
 	data->cursor = current_cursor;
 	return (1);
