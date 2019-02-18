@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:35:04 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 13:35:46 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,31 @@ static	int	asm_check_file(char *file, int *fd)
 	return (1);
 }
 
-void		asm_get_options(char *options, int *i, char **argv)
+static	int	asm_get_options(char *options, int argc, char **argv, char **output)
 {
-	if (argv[1][0] == '-')
+	int	a;
+	int	i;
+
+	a = 0;
+	i = 1;
+	while (i < argc && argv[i][a++] == '-')
 	{
-		if (argv[1][1] == 'c')
+		while (argv[i][a] != '\0')
 		{
-			*options = 1;
-			*i = *i + 1;
+			if (argv[i][a] == 'c')
+				*options = (*options | 1);
+			else if (argv[i][a] == 'o')
+				*options = (*options | 2);
+			else
+				return (ft_msg_int(2, "Wrong options.\n", argc));
+			a++;
 		}
+		a = 0;
+		i++;
 	}
+	if ((*options & 2) == 2 && i < argc)
+			*output = argv[i++];
+	return (i);
 }
 
 int			main(int argc, char **argv)
@@ -60,13 +75,13 @@ int			main(int argc, char **argv)
 	char	options;
 	char	*output;
 
+	output = NULL;
 	options = 0;
 	if (argc == 1)
 		return (ft_msg_int(1, "Usage : ./asm <sourcefile.s>\n", 0));
-	i = 1;
-	asm_get_options(&options, &i, argv);
-	if (i == argc)
-		return (ft_msg_int(1, "Usage : ./asm -opt <sourcefile.s>\n", 0));
+	i = asm_get_options(&options, argc, argv, &output);
+	if (i >= argc)
+		return (ft_msg_int(1, "Usage : ./asm -c/o <dest> <sourcefile.s>\n", 0));
 	while (i < argc)
 	{
 		if (asm_check_file(argv[i], &fd) > 0)
