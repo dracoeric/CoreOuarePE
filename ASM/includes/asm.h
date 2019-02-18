@@ -29,6 +29,7 @@
 # define WRONG_ARG_TYPE 8
 # define LABEL_DOES_NOT_EXIST 9
 # define LABEL_ALREADY_EXISTS 10
+# define MAX_MALLOC_SIZE 10000000
 
 typedef struct	s_op
 {

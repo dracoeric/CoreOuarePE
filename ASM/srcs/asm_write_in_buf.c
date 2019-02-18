@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:20:54 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:16:29 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:03:47 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			asm_malloc_buf(t_asm_data *data)
 	char	*str;
 
 	str = "Warning, abort champ too big, rerun with -c to force\n";
-	if (data->buf_size + B_SIZE > 10000000 && (data->options & 1) == 0)
+	if (data->buf_size + B_SIZE > MAX_MALLOC_SIZE && (data->options & 1) == 0)
 		return (ft_msg_int(1, str, -1));
 	if ((data->mallocked & 4) == 0)
 	{

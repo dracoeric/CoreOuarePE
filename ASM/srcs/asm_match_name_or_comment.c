@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:59:31 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:30:16 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:09:00 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		asm_match_name_or_comment(t_asm_data *data, char *line,
 					int *param)
 {
 	unsigned int	i;
+	char			old;
 
 	i = data->col;
 	if (line[i] == '\0')
@@ -26,11 +27,13 @@ int		asm_match_name_or_comment(t_asm_data *data, char *line,
 		i++;
 	if (line[i] == '\0')
 		return (asm_error_msg(data, SYNTAX_ERROR));
-	line[i++] = '\0';
+	old = line[i];
+	line[i] = '\0';
 	if (ft_strcmp(line + data->col, NAME_CMD_STRING) == 0)
 		*param = (*param | 1);
 	if (ft_strcmp(line + data->col, COMMENT_CMD_STRING) == 0)
 		*param = (*param | 2);
+	line[i] = old;
 	if (*param != 0)
 	{
 		data->col = i;
