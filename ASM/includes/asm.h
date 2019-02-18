@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:18:04 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 12:22:57 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ typedef struct	s_asm_data
 
 int				asm_next_line(t_asm_data *data, char **line);
 int				asm_error_msg(t_asm_data *data, int error_code);
-void			asm_assemble(int fd, char *file, char options);
+void			asm_assemble(int fd, char *file, char options,
+					char *output_path);
 int				asm_match_name_or_comment(t_asm_data *data, char *line,
 					int *param);
 int				asm_get_header(t_asm_data *data, t_header *header, int ret);
@@ -108,6 +109,6 @@ int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 int				asm_write_in_buf(t_asm_data *data, int content, int nb_byte);
 short			asm_atoi_short(char *str);
 int				asm_search_label(t_asm_data *data, char *name);
-int				asm_dest_path(char *file, int len);
+int				asm_dest_path(char *file, int len, char *output_path);
 int				asm_fill_holes(t_asm_data *data);
 #endif
