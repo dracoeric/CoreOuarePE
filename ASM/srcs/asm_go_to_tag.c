@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:15:23 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:06:10 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static	int		asm_malloc_labels(t_asm_data *data)
 	t_label	*new;
 
 	new = NULL;
-	if ((data->lab_size + B_SIZE / 2) > 1000000)
+	if ((data->lab_size + B_SIZE / 2) > MAX_MALLOC_SIZE)
 		return (ft_msg_int(2, "fail, lab_size too big.\n", -1));
 	if ((data->mallocked & 1) == 1)
 	{

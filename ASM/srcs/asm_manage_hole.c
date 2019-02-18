@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:56:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:16:00 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:06:48 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static	int		asm_malloc_holes(t_asm_data *data)
 	t_label *new;
 
 	new = NULL;
-	if ((data->holes_size + B_SIZE / 2) > 1000000)
+	if ((data->holes_size + B_SIZE / 2) > MAX_MALLOC_SIZE)
 		return (ft_msg_int(2, "Failed, holes_size too big.\n", -1));
 	if ((data->mallocked & 2) == 2)
 	{
