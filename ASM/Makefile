@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/18 11:07:08 by pmasson          ###   ########.fr        #
+#    Updated: 2019/02/18 12:15:09 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ SRCSDIR		=		./srcs
 OBJSDIR		=		./objs
 
 SRCS		=		main.c		op.c	asm_assemble.c			asm_get_header2.c	\
-					asm_free_data.c													\
+					asm_free_data.c		asm_next_line.c								\
 					asm_error_msg.c		asm_write_header.c		asm_go_to_tag.c		\
 					asm_convert.c		asm_match_tag.c			asm_manage_arg.c	\
 					asm_strip_arg.c		asm_verif_arg.c		asm_write_instruction.c	\

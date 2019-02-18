@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:33:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:29:13 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 12:14:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					asm_get_header(t_asm_data *data, t_header *header, int ret)
 	line = NULL;
 	while (param != 48 && ret > 0)
 	{
-		ret = get_next_line(data->fd, &line);
+		ret = asm_next_line(data, &line);
 		if (ret > 0)
 		{
 			data->line++;

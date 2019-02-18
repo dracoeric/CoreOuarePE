@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 11:22:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 12:18:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_asm_data
 {
 	int		fd;
 	int		dest_fd;
+	char	buf_gnl[BUFF_SIZE + 1];
 	int		label_max_size;
 	int		tag_max_size;
 	int		header_curs;
@@ -79,12 +80,12 @@ typedef struct	s_asm_data
 	int		col;
 }				t_asm_data;
 
+int				asm_next_line(t_asm_data *data, char **line);
 int				asm_error_msg(t_asm_data *data, int error_code);
 void			asm_assemble(int fd, char *file, char options);
 int				asm_match_name_or_comment(t_asm_data *data, char *line,
 					int *param);
 int				asm_get_header(t_asm_data *data, t_header *header, int ret);
-int				asm_next_line(int fd, char **line);
 int				asm_convert(t_asm_data *data);
 void			asm_free_data(t_asm_data *data);
 void			asm_write_header(t_asm_data *data, t_header *header);

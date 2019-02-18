@@ -6,12 +6,13 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:42:55 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 09:33:30 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 11:49:38 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 /*
 ** free asm_data
@@ -34,6 +35,8 @@ void			asm_free_data(t_asm_data *data)
 {
 	if (data == 0)
 		return ;
+	if (data->dest_fd != -2)
+		close(data->dest_fd);
 	asm_free_names(data->labels, data->lab_curs);
 	asm_free_names(data->holes, data->hol_curs);
 	if ((data->mallocked & 1) == 1)

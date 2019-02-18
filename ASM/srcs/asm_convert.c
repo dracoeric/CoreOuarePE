@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 09:40:26 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 17:08:24 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 12:14:40 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		asm_convert(t_asm_data *data)
 	char	opcode;
 
 	line = NULL;
-	while ((ret = get_next_line(data->fd, &line)) > 0)
+	while ((ret = asm_next_line(data, &line)) > 0)
 	{
 		data->line++;
 		data->col = 0;

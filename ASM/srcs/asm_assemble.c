@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 11:02:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 12:19:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,24 @@ static	int			asm_tag_max_size(void)
 static	int			asm_init_data(t_asm_data *data, int fd, char options)
 {
 	data->fd = fd;
-	data->dest_fd = -1;
+	data->dest_fd = -2;
+	ft_bzero(data->buf_gnl, BUFF_SIZE + 1);
 	data->label_max_size = 1000;
 	data->tag_max_size = asm_tag_max_size();
+	data->header_curs = 0;
+	ft_bzero(data->buf, B_SIZE + 1);
 	data->cursor = 0;
 	data->instruction_cursor = 0;
+	asm_init_labels(data);
+	data->lab_size = B_SIZE / 2;
 	data->lab_curs = 0;
 	data->hol_curs = 0;
 	data->line = 0;
 	data->col = 0;
 	data->mallocked = 0;
-	data->header_curs = 0;
-	data->lab_size = B_SIZE / 2;
 	data->holes_size = B_SIZE / 2;
 	data->buf_size = B_SIZE + 1;
 	data->options = options;
-	ft_bzero(data->buf, B_SIZE + 1);
-	asm_init_labels(data);
 	return (0);
 }
 
@@ -85,7 +86,6 @@ void				asm_finish(t_asm_data *data, t_header *header, char *file)
 	}
 	asm_write_header(data, header);
 	write(data->dest_fd, data->buf, data->cursor);
-	close(data->dest_fd);
 	asm_free_data(data);
 }
 
@@ -103,8 +103,7 @@ void				asm_assemble(int fd, char *file, char options)
 	ft_bzero(header->prog_name, PROG_NAME_LENGTH + 1);
 	ft_bzero(header->comment, COMMENT_LENGTH + 1);
 	header->magic = COREWAR_EXEC_MAGIC;
-	if (asm_init_data(data, fd, options) < 0)
-		exit(ft_msg_int(2, "Max number of arg over 100\n", 0));
+	asm_init_data(data, fd, options);
 	if (asm_get_header(data, header, 1) < 0)
 		return ;
 	if (asm_convert(data) < 0)
