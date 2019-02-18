@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:23:35 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 13:38:50 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				asm_finish(t_asm_data *data, t_header *header, char *file,
 		return ;
 	}
 	if ((data->dest_fd = asm_dest_path(file, ft_strlen(file),
-		output_file)) < 0)
+		output_path)) < 0)
 	{
 		asm_free_data(data);
 		return ;
