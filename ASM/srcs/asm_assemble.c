@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:25:45 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:57:12 by pmasson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void				asm_assemble(int fd, char *file, char options)
 	data->buf = buf;
 	data->labels = labels;
 	data->holes = holes;
+	ft_bzero(header->prog_name, PROG_NAME_LENGTH + 1);
+	ft_bzero(header->comment, COMMENT_LENGTH + 1);
 	header->magic = COREWAR_EXEC_MAGIC;
 	if (asm_init_data(data, fd, options) < 0)
 		exit(ft_msg_int(2, "Max number of arg over 100\n", 0));
