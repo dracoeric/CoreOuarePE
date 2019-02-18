@@ -1,0 +1,34 @@
+DONE
+1. negative with -n flag + error handling
+2. Introducing contestants...
+3. Debug flags -op and -arg
+4. custom audio to kill process
+5. proper default output ?
+6. added processes to front
+7. script to check if no && or || at the end
+
+MUST DO
+1. fix all the operations (add, etc.)
+2. what if w is larger then dump
+	- w larger than the max cycle
+	- dump is larger than the max cycle
+3. leaks and stuff
+
+OPTIONAL TO DO
+3. aff buffer (champ with big message)
+
+GLOBAL TO DO
+1. main makefile
+2. script for diff on op.c and op.h in makefile
+
+BONUS:
+1. visualiser:
+	- start at specified cycle
+	- speed
+	- cp
+2. kill process sound
+3. (not yet) asm error messages
+4. (not yet) asm custom output location
+5. (not yet) championship
+6. (not yet) statistics
+7. debug mode/modes
