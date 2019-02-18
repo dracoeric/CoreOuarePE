@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:57:12 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 11:02:25 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static	int			asm_init_data(t_asm_data *data, int fd, char options)
 	data->line = 0;
 	data->col = 0;
 	data->mallocked = 0;
+	data->header_curs = 0;
 	data->lab_size = B_SIZE / 2;
 	data->holes_size = B_SIZE / 2;
 	data->buf_size = B_SIZE + 1;
