@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:19:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 12:23:35 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,16 @@ static	int			asm_init_data(t_asm_data *data, int fd, char options)
 	return (0);
 }
 
-void				asm_finish(t_asm_data *data, t_header *header, char *file)
+void				asm_finish(t_asm_data *data, t_header *header, char *file,
+						char *output_path)
 {
 	if (asm_fill_holes(data) < 0)
 	{
 		asm_free_data(data);
 		return ;
 	}
-	if ((data->dest_fd = asm_dest_path(file, ft_strlen(file))) < 0)
+	if ((data->dest_fd = asm_dest_path(file, ft_strlen(file),
+		output_file)) < 0)
 	{
 		asm_free_data(data);
 		return ;
@@ -89,7 +91,8 @@ void				asm_finish(t_asm_data *data, t_header *header, char *file)
 	asm_free_data(data);
 }
 
-void				asm_assemble(int fd, char *file, char options)
+void				asm_assemble(int fd, char *file, char options,
+						char *output_path)
 {
 	t_asm_data	data[1];
 	t_header	header[1];
@@ -114,5 +117,5 @@ void				asm_assemble(int fd, char *file, char options)
 	header->prog_size = data->cursor;
 	if (data->cursor > CHAMP_MAX_SIZE)
 		ft_putstr("Warning : Champion size exceed maximum size authorized.\n");
-	asm_finish(data, header, file);
+	asm_finish(data, header, file, output_path);
 }
