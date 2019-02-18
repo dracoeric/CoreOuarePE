@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:59:31 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:09:00 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 10:13:08 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		asm_match_name_or_comment(t_asm_data *data, char *line,
 	if (line[i] == '\0')
 		return (0);
 	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0'
-			&& ((int)i - data->col) < data->tag_max_size)
+			&& line[i] != '"' && ((int)i - data->col) < data->tag_max_size)
 		i++;
 	if (line[i] == '\0')
 		return (asm_error_msg(data, SYNTAX_ERROR));

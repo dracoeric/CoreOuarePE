@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:31:11 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 10:16:04 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		asm_match_tag(t_asm_data *data, char *line)
 		&& line[i] != '\t' && line[i] != '\0' && line[i] != COMMENT_CHAR)
 		i++;
 	if (line[i] == '\0' || line[i] == COMMENT_CHAR)
-		return (asm_error_msg(data, MISSING_ARGUMENT));
+		return (asm_error_msg(data, SYNTAX_ERROR));
 	line[i++] = '\0';
 	j = 0;
 	while (asm_op_tab(j).tag != 0)
@@ -45,5 +45,5 @@ int		asm_match_tag(t_asm_data *data, char *line)
 		}
 		j++;
 	}
-	return ((char)asm_error_msg(data, UNKNOWN_INSTRUCTION));
+	return ((char)asm_error_msg(data, LEXICAL_ERROR));
 }

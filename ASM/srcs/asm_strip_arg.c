@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:21:00 by erli              #+#    #+#             */
-/*   Updated: 2019/02/15 14:12:15 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 10:32:19 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,30 @@
 ** Also fills cols, which contains the number of col before each arg.
 */
 
+static	int	asm_manage_comment_char(t_asm_data *data, char *line)
+{
+	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+	{
+		if (line[data->col] == COMMENT_CHAR)
+			line[data->col] = '\0';
+		return (0);
+	}
+	return (1);
+}
+
 static	int	asm_get_arg(t_asm_data *data, char *line, int *nb_sep, int i)
 {
 	while (line[data->col] != ' ' && line[data->col] != '\t'
 		&& line[data->col] != '\0' && line[data->col] != COMMENT_CHAR
 		&& line[data->col] != SEPARATOR_CHAR)
 		data->col++;
-	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+	if (asm_manage_comment_char(data, line) == 0)
 		return (0);
 	*nb_sep += (line[data->col] == SEPARATOR_CHAR ? 1 : 0);
 	line[data->col++] = '\0';
 	while (line[data->col] == ' ' || line[data->col] == '\t')
 		data->col++;
-	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
+	if (asm_manage_comment_char(data, line) == 0)
 		return (0);
 	if ((line[data->col] != SEPARATOR_CHAR && *nb_sep == i)
 		|| (line[data->col] == SEPARATOR_CHAR && *nb_sep == i + 1))
