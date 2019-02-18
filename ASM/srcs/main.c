@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 14:00:20 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/18 14:19:01 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static	int	asm_get_options(char *options, int argc, char **argv, char **output)
 		i++;
 	}
 	if ((*options & 2) == 2 && i < argc)
-			*output = argv[i++];
+		*output = argv[i++];
 	return (i);
 }
 
