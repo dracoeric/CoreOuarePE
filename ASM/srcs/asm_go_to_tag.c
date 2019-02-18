@@ -74,6 +74,8 @@ static	int		asm_malloc_labels(t_asm_data *data)
 
 static	int		asm_create_lab(t_asm_data *data, char *line, int i)
 {
+	int	a;
+
 	if (data->lab_curs >= data->lab_size)
 	{
 		if (asm_malloc_labels(data) < 0)
@@ -87,6 +89,14 @@ static	int		asm_create_lab(t_asm_data *data, char *line, int i)
 	data->labels[data->lab_curs].col = data->col;
 	data->labels[data->lab_curs].state = 1;
 	data->lab_curs++;
+	a = 0;
+	while (a < data->lab_curs - 1)
+	{
+		if (ft_strcmp(data->labels[a].name,
+					data->labels[data->lab_curs - 1].name) == 0)
+			return (asm_error_msg(data, 10));
+		a++;
+	}
 	return (1);
 }
 
