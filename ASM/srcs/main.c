@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:50:33 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:36:35 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 11:21:54 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			main(int argc, char **argv)
 	int		fd;
 	char	options;
 
+	options = 0;
 	if (argc == 1)
 		return (ft_msg_int(1, "Usage : ./asm <sourcefile.s>\n", 0));
 	i = 1;

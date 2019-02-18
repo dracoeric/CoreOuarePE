@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/15 16:12:32 by erli             ###   ########.fr        #
+#    Updated: 2019/02/18 10:39:09 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,7 +28,7 @@ SRCS		=		main.c		op.c	asm_assemble.c			asm_get_header2.c	\
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
-CC			=		gcc -g -fsanitize=address
+CC			=		gcc -g
 
 CFLAG		=		-Wall -Werror -Wextra
 
