@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:22:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 13:54:09 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_op
 {
 	char		*tag;
 	int			nb_arg;
-	int			arg_type[3];
+	int			arg_type[MAX_ARGS_NUMBER];
 	char		opcode;
 	int			duration;
 	char		*description;
