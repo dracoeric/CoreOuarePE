@@ -13,7 +13,7 @@
 #ifndef VM_H
 # define VM_H
 
-# include "../../op.h"
+# include "../../shared/op.h"
 # include "../libft/ft_printf/ft_printf.h"
 # include <fcntl.h>
 
@@ -41,12 +41,12 @@ typedef struct			s_process
 {
 	int					index;
 	int					seek;
-	int					reg[17];
+	int					reg[REG_NUMBER + 1];
 	int					duration;
 	int					duration_set;
 	int					carry;
 	int					alive;
-	short				champ;
+	int					champ;
 	struct s_process	*next;
 }						t_process;
 
@@ -54,7 +54,7 @@ typedef struct			s_champ
 {
 	struct s_header		header;
 	int					start_index;
-	unsigned int		nbr;
+	int					nbr;
 	short				nbr_set;
 	int					weight;
 	int					alive_count;
@@ -69,7 +69,7 @@ typedef struct			s_game
 	int					cycle;
 	int					alive_count;
 	long long			cycle_count;
-	struct s_champ		champ[5];
+	struct s_champ		champ[MAX_PLAYERS + 1];
 	int					champ_total;
 	struct s_process	*process;
 	int					flag_dump;
